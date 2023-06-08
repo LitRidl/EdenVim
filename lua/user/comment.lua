@@ -12,7 +12,7 @@ local M = {
 }
 
 function M.config()
-  pre_hook = function(ctx)
+  local pre = function(ctx)
     -- Only calculate commentstring for tsx filetypes
     if vim.bo.filetype == "typescriptreact" then
       local U = require "Comment.utils"
@@ -34,6 +34,17 @@ function M.config()
       }
     end
   end
+
+  -- Setting up Comment.nvim keymaps
+  require("Comment").setup({
+    mappings = {
+      ---Operator-pending mapping; `gcc` `gbc` `gc[count]{motion}` `gb[count]{motion}`
+      basic = true,
+      ---Extra mapping; `gco`, `gcO`, `gcA`
+      extra = true,
+    },
+    pre_hook = pre,
+  })
 end
 
 return M

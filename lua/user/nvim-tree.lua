@@ -7,12 +7,39 @@ local M = {
 function M.config()
   local tree_cb = require("nvim-tree.config").nvim_tree_callback
   require("nvim-tree").setup {
+    disable_netrw = true,
+    hijack_netrw = true,
+    hijack_cursor = true,
+    hijack_unnamed_buffer_when_opening = false,
+    sync_root_with_cwd = true,
     update_focused_file = {
       enable = true,
+      update_root = false,
       update_cwd = true,
     },
+    git = {
+      enable = false,
+      ignore = true,
+    },
+    filesystem_watchers = {
+      enable = true,
+    },
+    actions = {
+      open_file = {
+        resize_window = true,
+      },
+    },
     renderer = {
+      indent_markers = {
+        enable = false,
+      },
       icons = {
+        show = {
+          file = true,
+          folder = true,
+          folder_arrow = true,
+          git = false,
+        },
         glyphs = {
           default = "",
           symlink = "",
@@ -39,14 +66,8 @@ function M.config()
       },
     },
     diagnostics = {
-      enable = true,
-      show_on_dirs = true,
-      icons = {
-        hint = "",
-        info = "",
-        warning = "",
-        error = "",
-      },
+      enable = false,
+      show_on_dirs = false,
     },
     view = {
       width = 30,

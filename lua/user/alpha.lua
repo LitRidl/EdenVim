@@ -5,27 +5,41 @@ local M = {
 }
 
 function M.config()
-  local alpha = require "alpha"
-  local dashboard = require "alpha.themes.dashboard"
+  local alpha = require("alpha")
+  local dashboard = require("alpha.themes.dashboard")
+
   dashboard.section.header.val = {
-    [[                               __                ]],
-    [[  ___     ___    ___   __  __ /\_\    ___ ___    ]],
-    [[ / _ `\  / __`\ / __`\/\ \/\ \\/\ \  / __` __`\  ]],
-    [[/\ \/\ \/\  __//\ \_\ \ \ \_/ |\ \ \/\ \/\ \/\ \ ]],
-    [[\ \_\ \_\ \____\ \____/\ \___/  \ \_\ \_\ \_\ \_\]],
-    [[ \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/]],
+    "     ***** **         **                                ***** *      **                            ",
+    "  ******  **** *       **                            ******  *    *****     *                      ",
+    " **   *  * ****        **                           **   *  *       *****  ***                     ",
+    "*    *  *   **         **                          *    *  **       * **    *                      ",
+    "    *  *               **                              *  ***      *                               ",
+    "   ** **           *** **      ***    ***  ****       **   **      *      ***     *** **** ****    ",
+    "   ** **          *********   * ***    **** **** *    **   **      *       ***     *** **** ***  * ",
+    "   ** ******     **   ****   *   ***    **   ****     **   **     *         **      **  **** ****  ",
+    "   ** *****      **    **   **    ***   **    **      **   **     *         **      **   **   **   ",
+    "   ** **         **    **   ********    **    **      **   **     *         **      **   **   **   ",
+    "   *  **         **    **   *******     **    **       **  **    *          **      **   **   **   ",
+    "      *          **    **   **          **    **        ** *     *          **      **   **   **   ",
+    "  ****         * **    **   ****    *   **    **         ***     *          **      **   **   **   ",
+    " *  ***********   *****      *******    ***   ***         *******           *** *   ***  ***  ***  ",
+    "*     ******       ***        *****      ***   ***          ***              ***     ***  ***  *** ",
+    "*                                                                                                  ",
+    " **                                                                                                ",
   }
+
   dashboard.section.buttons.val = {
-    dashboard.button("f", " " .. " Find file", ":Telescope find_files <CR>"),
-    dashboard.button("e", " " .. " New file", ":ene <BAR> startinsert <CR>"),
-    dashboard.button("p", " " .. " Find project", ":lua require('telescope').extensions.projects.projects()<CR>"),
-    dashboard.button("r", " " .. " Recent files", ":Telescope oldfiles <CR>"),
-    dashboard.button("t", " " .. " Find text", ":Telescope live_grep <CR>"),
-    dashboard.button("c", " " .. " Config", ":e $MYVIMRC <CR>"),
-    dashboard.button("q", " " .. " Quit", ":qa<CR>"),
+    dashboard.button("f", "󰱼 " .. " Find file", ":Telescope find_files <cr>"),
+    dashboard.button("e", "󰝒 " .. " New file", ":ene <BAR> startinsert <cr>"),
+    dashboard.button("s", "󰸕 " .. " Sessions", ":Telescope possession list<cr>"),
+    dashboard.button("r", " " .. " Recent files", ":Telescope oldfiles<cr>"),
+    dashboard.button("t", "󱎸 " .. " Find text", ":Telescope live_grep<cr>"),
+    dashboard.button("c", " " .. " EdenVim config", ":SLoad edenvim-config<cr>"),
+    dashboard.button("d", " " .. " Dotfiles", ":SLoad dotfiles<cr>"),
+    dashboard.button("q", "󰩈 " .. " Quit", ":qa<cr>"),
   }
   local function footer()
-    return "chrisatmachine.com"
+    return "github.com/LitRidl"
   end
 
   dashboard.section.footer.val = footer()
