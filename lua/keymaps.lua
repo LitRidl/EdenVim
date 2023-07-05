@@ -76,7 +76,6 @@ map("n", "<leader>e", "<cmd>NvimTreeToggle<cr>", { desc = "Toggle nvim-tree file
 -- Telescope
 map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Telescope find files" })
 map("n", "<leader>ft", "<cmd>Telescope live_grep<cr>", { desc = "Telescope live grep" })
-map("n", "<leader>fp", "<cmd>Telescope projects<cr>", { desc = "Telescope search projects" })
 map("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Telescope search buffers" })
 map(
   "n",
@@ -131,9 +130,19 @@ map("n", "<leader>ss", "<cmd>AerialToggle!<cr>", { desc = "Toggle symbols explor
 map("n", "<leader>ipy", "<cmd>lua _PY_TOGGLE()<cr>", { desc = "Toggle iPython terminal" })
 
 -- Mini.Sessions (note: there is no need for manual saving because of MiniSession.config.autosave = true)
-map("n", "<leader>sr", "<cmd>lua require('mini.sessions').read(nil)<cr>", { desc = "Load local or latest global session" })
+map(
+  "n",
+  "<leader>sr",
+  "<cmd>lua require('mini.sessions').read(nil)<cr>",
+  { desc = "Load local or latest global session" }
+)
 map("n", "<leader>sR", "<cmd>lua require('mini.sessions').select('read')<cr>", { desc = "Select & load a session" })
-map("n", "<leader>sw", "<cmd>local M = require('mini.sessions'); M.write(M.config.file)<cr>", { desc = "Write a local session" })
+map(
+  "n",
+  "<leader>sw",
+  "<cmd>local M = require('mini.sessions'); M.write(M.config.file)<cr>",
+  { desc = "Write a local session" }
+)
 map("n", "<leader>sW", "<cmd>lua require('mini.sessions').select('write')<cr>", { desc = "Select & write a session" })
 map("n", "<leader>sd", "<cmd>lua require('mini.sessions').delete(nil)<cr>", { desc = "Delete current session" })
 map("n", "<leader>sD", "<cmd>lua require('mini.sessions').select('delete')<cr>", { desc = "Select & delete a session" })

@@ -37,6 +37,7 @@ table.insert(themes, {
   },
   config = function(_, opts)
     require("catppuccin").setup(opts)
+    vim.cmd.colorscheme("catppuccin")
   end,
 })
 
@@ -46,14 +47,15 @@ table.insert(themes, {
   name = "monokai-pro",
   opts = {
     -- classic | octagon | pro | machine | ristretto | spectrum
-    filter = "pro",
+    filter = "spectrum",
     background_clear = {},
   },
   config = function(_, opts)
     require("monokai-pro").setup(opts)
-    require("lualine").setup({
+    require("lualine").setup {
       theme = "monokai-pro",
-    })
+    }
+    vim.cmd.colorscheme("monokai-pro")
   end,
 })
 
@@ -63,22 +65,16 @@ table.insert(themes, {
   name = "tokyonight",
   config = function(_, opts)
     require("tokyonight").setup(opts)
+    vim.cmd.colorscheme("tokyonight")
   end,
 })
 
-
 -- Enable the theme specified in options.lua and disable all other themes
 for _, v in pairs(themes) do
-  v.priority = 1000
   v.cond = v.name == vim.g.eden_theme
   if v.cond then
+    v.priority = 1000
     v.lazy = false
-    v._config_base = v.config
-    v.config = function(_, opts)
-      -- _config_base may not be a function
-      pcall(v._config_base, _, opts)
-      vim.cmd.colorscheme(v.name)
-    end
   end
 end
 

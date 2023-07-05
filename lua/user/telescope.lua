@@ -1,11 +1,16 @@
 local M = {
   "nvim-telescope/telescope.nvim",
-  commit = "40c31fdde93bcd85aeb3447bb3e2a3208395a868",
+  -- commit = "40c31fdde93bcd85aeb3447bb3e2a3208395a868",
   event = "Bufenter",
   cmd = { "Telescope" },
+  dependencies = {
+    "nvim-telescope/telescope-fzf-native.nvim",
+    build = "make",
+    config = function()
+      require("telescope").load_extension "fzf"
+    end,
+  },
 }
-
-local actions = require "telescope.actions"
 
 M.opts = {
   defaults = {
@@ -15,16 +20,25 @@ M.opts = {
     file_ignore_patterns = { ".git/", "node_modules" },
     color_devicons = true,
     set_env = { ["COLORTERM"] = "truecolor" },
-    -- border = false,
     mappings = {
       i = {
-        ["<Down>"] = actions.move_selection_next,
-        ["<Up>"] = actions.move_selection_previous,
-        ["<C-j>"] = actions.move_selection_next,
-        ["<C-k>"] = actions.move_selection_previous,
+        ["<Down>"] = function(...)
+          return require("telescope.actions").move_selection_next(...)
+        end,
+        ["<Up>"] = function(...)
+          return require("telescope.actions").move_selection_previous(...)
+        end,
+        ["<C-j>"] = function(...)
+          return require("telescope.actions").move_selection_next(...)
+        end,
+        ["<C-k>"] = function(...)
+          return require("telescope.actions").move_selection_previous(...)
+        end,
       },
       n = {
-        ["q"] = actions.close,
+        ["q"] = function(...)
+          return require("telescope.actions").close(...)
+        end,
       },
     },
   },
@@ -35,10 +49,10 @@ M.opts = {
   },
   extensions = {
     fzf = {
-      fuzzy = true,                   -- false will only do exact matching
+      fuzzy = true, -- false will only do exact matching
       override_generic_sorter = true, -- override the generic sorter
-      override_file_sorter = true,    -- override the file sorter
-      case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
+      override_file_sorter = true, -- override the file sorter
+      case_mode = "smart_case", -- or "ignore_case" or "respect_case"
     },
   },
 }
