@@ -5,6 +5,8 @@ local M = {
 }
 
 function M.config()
+  vim.b.miniindentscope_disable = true
+
   local alpha = require("alpha")
   local dashboard = require("alpha.themes.dashboard")
 
@@ -31,12 +33,12 @@ function M.config()
   dashboard.section.buttons.val = {
     dashboard.button("f", "󰱼 " .. " Find file", ":Telescope find_files <cr>"),
     dashboard.button("e", "󰝒 " .. " New file", ":ene <BAR> startinsert <cr>"),
-    dashboard.button("s", "󰸕 " .. " Sessions", ":Telescope possession list<cr>"),
+    dashboard.button("s", "󰸕 " .. " Sessions", ":lua require('mini.sessions').select()<cr>"),
     dashboard.button("r", " " .. " Recent files", ":Telescope oldfiles<cr>"),
     dashboard.button("t", "󱎸 " .. " Find text", ":Telescope live_grep<cr>"),
-    dashboard.button("c", " " .. " EdenVim config", ":SLoad edenvim-config<cr>"),
-    dashboard.button("d", " " .. " Dotfiles", ":SLoad dotfiles<cr>"),
-    dashboard.button("q", "󰩈 " .. " Quit", ":qa<cr>"),
+    dashboard.button("c", " " .. " EdenVim config", ":lua require('mini.sessions').read('nvim')<cr>"),
+    dashboard.button("d", " " .. " Dotfiles", ":lua require('mini.sessions').read('dotfiles')<cr>"),
+    dashboard.button("q", "󰩈 " .. " Quit", ":qa!<cr>"),
   }
   local function footer()
     return "github.com/LitRidl"

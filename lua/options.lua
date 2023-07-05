@@ -2,7 +2,7 @@ local opt = vim.opt
 local g = vim.g
 
 -- catppuccin, monokai-pro, tokyonight
-g.eden_theme = "monokai-pro"                 -- EdenVim-specific theme name (look lua/user/colorscheme.lua)
+g.eden_theme = "monokai-pro"                -- EdenVim-specific theme name (look lua/user/colorscheme.lua)
 
 opt.backup = false                          -- creates a backup file
 opt.clipboard = "unnamedplus"               -- allows neovim to access the system clipboard
@@ -34,14 +34,14 @@ opt.cursorline = true                       -- highlight the current line
 opt.number = true                           -- set numbered lines
 opt.relativenumber = true                   -- set relative line numbers (absolute + relative = hybrid)
 opt.laststatus = 3                          -- only the last window will always have a status line
-opt.showcmd = false                         -- hide (partial) command in the last line of the screen (for performance)
+opt.showcmd = true                          -- don't hide partial command in the last line of the screen (although bad for performance)
 opt.ruler = false                           -- hide the line and column number of the cursor position
 opt.numberwidth = 4                         -- minimal number of columns to use for the line number {default 4}
 opt.signcolumn = "yes"                      -- always show the sign column, otherwise it would shift the text each time
 opt.wrap = false                            -- display lines as one long line
 opt.scrolloff = 8                           -- minimal number of screen lines to keep above and below the cursor
 opt.sidescrolloff = 8                       -- minimal number of screen columns to keep to the left and right of the cursor if wrap is `false`
-opt.guifont = "monospace:h17"               -- the font used in graphical neovim applications
+opt.guifont = "monospace:h12"               -- the font used in graphical neovim applications
 opt.fillchars.eob = " "                     -- show empty lines at the end of a buffer as ` ` {default `~`}
 opt.shortmess:append "c"                    -- hide all the completion messages, e.g. "-- XXX completion (YYY)", "match 1 of 2", "The only match", "Pattern not found"
 opt.whichwrap:append "<,>,[,],h,l"          -- keys allowed to move to the previous/next line when the beginning/end of line is reached
@@ -49,3 +49,4 @@ opt.iskeyword:append "-"                    -- treats words with `-` as single w
 opt.formatoptions:remove { "c", "r", "o" }  -- This is a sequence of letters which describes how automatic formatting is to be done
 opt.linebreak = true
 opt.colorcolumn = {80, 120}                 -- set line width indication at columns 80 and 120
+opt.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"

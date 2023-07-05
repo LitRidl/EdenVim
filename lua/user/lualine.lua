@@ -18,7 +18,7 @@ function M.config()
     "diagnostics",
     sources = { "nvim_diagnostic" },
     sections = { "error", "warn", "info", "hint" },
-    symbols = { error = " ", warn = " ", info = " ", hint = " "},
+    symbols = { error = " ", warn = " ", info = " ", hint = " " },
     colored = true,
     update_in_insert = true,
     always_visible = false,
@@ -67,16 +67,15 @@ function M.config()
   --   icon = " ",
   -- }
 
-  local session = {
-    function()
-      return require("possession.session").session_name or ""
-    end,
-    icon = "󰃀",
-  }
+  -- local session = {
+  --   -- current_session_name is a function
+  --   require("auto-session.lib").current_session_name,
+  --   icon = "󰃀",
+  -- }
 
   local date = {
     function()
-      return os.date("%a %m/%d %H:%M")
+      return os.date "%a %m/%d %H:%M"
     end,
     -- icon = "",
   }
@@ -98,7 +97,7 @@ function M.config()
     sections = {
       lualine_a = { "mode" },
       lualine_b = { "branch", diff },
-      lualine_c = { diagnostics, session, filename },
+      lualine_c = { diagnostics, --[[ session, ]] filename },
       lualine_x = { "fileformat", "encoding", filetype },
       lualine_y = { location },
       lualine_z = { date },
