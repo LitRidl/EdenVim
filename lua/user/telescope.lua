@@ -4,11 +4,19 @@ local M = {
   event = "Bufenter",
   cmd = { "Telescope" },
   dependencies = {
-    "nvim-telescope/telescope-fzf-native.nvim",
-    build = "make",
-    config = function()
-      require("telescope").load_extension "fzf"
-    end,
+    {
+      "nvim-telescope/telescope-fzf-native.nvim",
+      build = "make",
+      -- config = function()
+      --   require("telescope").load_extension "fzf"
+      -- end,
+    },
+    {
+      "debugloop/telescope-undo.nvim",
+      -- config = function()
+      --   require("telescope").load_extension "undo"
+      -- end,
+    },
   },
 }
 
@@ -44,7 +52,10 @@ M.opts = {
   },
   pickers = {
     find_files = {
+      -- find_command = { "rg", "--color=never", "--files", "--hidden", "--glob", "!**/.git/*" },
       hidden = true,
+      follow = true,
+      -- no_ignore = true,
     },
   },
   extensions = {
@@ -54,7 +65,20 @@ M.opts = {
       override_file_sorter = true, -- override the file sorter
       case_mode = "smart_case", -- or "ignore_case" or "respect_case"
     },
+    undo = {
+      layout_strategy = "horizontal",
+      layout_config = {
+        preview_width = 0.5,
+      },
+    },
   },
 }
+
+function M.config(_, opts)
+  require("telescope").setup(opts)
+
+  require("telescope").load_extension "undo"
+  require("telescope").load_extension "fzf"
+end
 
 return M

@@ -74,30 +74,25 @@ map("i", "<C-l>", "<Right>", { desc = "Move cursor right" })
 map("n", "<leader>e", "<cmd>NvimTreeToggle<cr>", { desc = "Toggle nvim-tree file browser" })
 
 -- Telescope
-map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Telescope find files" })
-map("n", "<leader>ft", "<cmd>Telescope live_grep<cr>", { desc = "Telescope live grep" })
-map("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Telescope search buffers" })
-map(
-  "n",
-  "<leader>fa",
-  "<cmd>Telescope find_files follow=true no_ignore=true hidden=true <cr>",
-  { desc = "Telescope find files (all)" }
-) -- Find all
+map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Find files by path" })
+map("n", "<leader>ft", "<cmd>Telescope live_grep<cr>", { desc = "Search through files (live grep)" })
+map("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Search buffers" })
+map("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Search recently opened files" })
+map("n", "<leader>fR", "<cmd>Telescope registers<cr>", { desc = "Search registers" })
+map("n", "<leader>u", "<cmd>Telescope undo<cr>", { desc = "Search through undo tree" })
+map("n", "<leader>fm", "<cmd>Telescope man_pages<cr>", { desc = "Search man pages" })
+map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Search NeoVim help pages" })
 map(
   "n",
   "<leader>fz",
   "<cmd>Telescope current_buffer_fuzzy_find <cr>",
   { desc = "Telescope find in the current buffer" }
-) -- find in current buffer
-map("n", "<leader>fsr", "<cmd>Telescope file_browser<cr>", { desc = "Telescope file browser (in root folder)" })
-map(
-  "n",
-  "<leader>fsc",
-  "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>",
-  { desc = "Telescope file browser (wrt to open file)" }
 )
 
 -- Git
+map("n", "<leader>gs", "<cmd>Telescope git_status<cr>", { desc = "Search through changed files (git status)" })
+map("n", "<leader>gb", "<cmd>Telescope git_branches<cr>", { desc = "Search through git branches" })
+map("n", "<leader>gc", "<cmd>Telescope git_commits<cr>", { desc = "Search through git commits" })
 map("n", "<leader>gg", "<cmd>lua _LAZYGIT_TOGGLE()<cr>", { desc = "Toggle LazyGit" })
 
 -- comment
