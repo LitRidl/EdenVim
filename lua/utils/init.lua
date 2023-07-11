@@ -9,6 +9,7 @@ M.servers = {
   "pyright",
   "bashls",
   "bufls",
+  "zls",
   "jsonls",
   "yamlls",
   "svelte",
