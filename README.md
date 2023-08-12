@@ -1,196 +1,40 @@
-# A Basic Stable IDE config for Neovim
+# EdenVim — Craft your personal IDE experience
 
-> Why does this repo exist?
+A perfect starting point for your personal, full-featured Neovim config. No convoluted layers, just a clean and intuitive setup to kickstart your PDE (Personalized Development Environment) journey.
 
-This config attempts to provide a rock solid fully featured starting point for someone new to Neovim, or just tired of maintaining the basic IDE components of their config.
+If you came here looking for a pre-made, full-blown Neovim IDE, then you're in the right place. Chances are you're on the same path I was — [Why EdenVim? My Neovim Journey](#why-edenvim--my-neovim-journey).
 
-> What makes it "rock solid"?
+## Features
+- 🍴**Fork & Craft**🎨 This is *your* configuration, it's the starting point. No *"we have **our** base configuration, don't touch it, clone a starter repository and go with it*". If you don't want to maintain plugin versions, you can pull our changes to your configuration.
+- ⚡**Fast**🚀 Lazy-loading with `Lazy.nvim` and caching of Lua bytecode with a new Neovim 0.9+ feature. On my laptop, using `:Lazy profile` gives 45 ms, compared to 90 ms for AstroNvim, 80 ms for LazyVim, and 50 ms for NvChad.
+- 🪶**Small**🔍 ~2500 lines of code, mostly plugin settings and explicitly defined defaults. Plus, ~500 lines of comments.
+- 🏰**Stable**🪤 You are guarded from breaking changes on updates by using a mechanism based on `Lazy.nvim` lazylock files.
+- 🎮**Tools that work immediately**🧰 No need to configure `treesitter`, debug adapters, language servers, linters and diagnostics "from scratch". Furthermore, all packages install automatically using `mason.nvim` for `null-ls.nvim`, `nvim-lspconfig`, and `nvim-dap`.
+- 🪟**Out-of-the-box transparency**🌙 It just works for almost all color schemes — a feature often missing even in IDE-like configurations.
+- 🌀**No wrapping**➡️ Be it `Lazy.nvim`, `rust-tools.nvim`, or your color scheme, you use it explicitly — no *"lang packs"*, *"theme loaders"*, *"UI layers"*, etc. You can also include your own plugins from your local file system.
+- 🧶**Minimal interdependencies**📌 All related things are generally placed together, there is no approach of *"taking icons from here, fetching settings from there, extending default options from base config"*. The exception is key mappings — we keep them in one place.
+- 🌱**Extend Neovim, not replace it**💡 We want you to learn Neovim, not yet another IDE. No `<leader>tl` or `<leader>lm` instead of `:Lazy` and `:Mason`, no bindings like `<leader><tab>n` instead of simple Neovim's builtin `gt`, and so on.
+- 🦉**Simplicity over hiding**🧮 should we write a code to hide a `Switch C/C++ header/source file` keybinding while you're in a Python file? For us, the answer is no — we trust you, and your journey is simpler without extensive checks, notification code, and autocommand chains.
+- 🏆**Exceptional support of C/C++ and Rust**📚 correct configuration of `clangd_extensions.nvim`, include-based autocompletion, crate management, etc. I've personally used it to navigate some complex Rust projects and Linux kernel (for the kernel, just be sure to [generate compile_commands.json](https://github.com/torvalds/linux/blob/master/scripts/clang-tools/gen_compile_commands.py)).
+- 📐**Sane defaults for options, keymaps, basic plugins, and autocommands**✅ Things you'll do anyway. For instance, many users dislike when indenting in Virtual mode switches to Normal mode, or the inability to save a root-owned file if they forgot to use `sudo` or `sudoedit`.
+- 💡**Modern obsessively picked plugins**🎯 You'll notice how `typescript-tools.nvim` outperforms `typescript-language-server` in a large project, how `flash.nvim` really exceeds `hop.nvim`, how `mini.ai` elevates text objects to a whole new level, and a lot more.
 
-All the included plugins are pinned to a version that ensures they are compatible and will not update potentially introducing errors into your config. For every Neovim release I will update this repo along with the community to keep it up to date with the newest versions.
+## Why EdenVim? My Neovim Journey
+My path started with IDEs like IDEA, CLion, and VS Code. At first, I tried to get "the most powerful" Neovim setup. Intuitively, I treated it as a pre-made IDE, although it's a PDE platform.
 
-As I mentioned, this config is meant as a starting point for people new to Neovim who want a familiar IDE experience. The config has a very simple structure that makes it easy to add new plugins.
+I tried AstroNvim, LunarVim, LazyVim, and NvChad. I was overwhelmed by complexity — not only did I have to learn Vim, Neovim, and Lua, but I also had to navigate configuration-specific abstractions. I even had to create a Neovim configuration switcher to navigate between my setups. In the end, I settled on NvChad — it felt less bloated and had a noticeable presence on YouTube.
 
-### Migration guide to lazy from packer
+It went well until I decided to remove "close all" and "toggle dark/light theme" buttons. For something that I've never used, they consumed too much screen real estate. Surprisingly, it became a time-consuming endeavor. I discovered that it was hard-coded in NvChad's dependencies: to fix this, I had to change the `NvChad UI` plugin, breaking all future updates.
 
-Now this config uses `lazy.nvim` as a plugin manager, so if you are migrating from packer you should probably remove
-`$HOME/.local/share/nvim` and re-open nvim to re-install the plugins to not face any issues.
+The consensus on the Neovim subreddit was clear: in the end, most people craft their own configuration. The advice is to start with templates like `Neovim-from-scratch` or `kickstart.nvim`. This time, I was sure: they're not being elitist, it is genuine advice.
 
-## Install Neovim 0.9
+Some templates were outdated, while others hadn't incorporated even basic tools like `Lazy.nvim`. Still, it was a breath of fresh air — you do everything yourself, gaining understanding and remembering your keymaps. I went with `nvim-basic-ide` template.
 
-You can install Neovim with your package manager e.g. brew, apt, pacman etc.. but remember that when you update your packages Neovim may be upgraded to a newer version.
+Soon, a new challenge arose — plugin authors occasionally introduce literally breaking changes that can ruin your workday. This is where pre-built configurations shine — they fix updates or give the ability to rollback to the clean installation. Having taken "do it yourself" approach, I spent a lot of time creating my own full-featured stable configuration. I was lucky to have some spare time, but I doubt everyone has it.
 
-If you would like to make sure Neovim only updates when you want it to than I recommend installing from source:
+As you may have guessed, EdenVim is my solution — you still follow the "do it yourself" approach but with more speed and less frustration. The goal is to bridge the gaps between *"I've installed it"*, *"It works for my projects"*, and *"I can customize my PDE"*. Although these stages don't coincide in practice, the aim is to make them overlap as much as possible. Moreover, if you're familiar with Vim, you'll become productive in just a day or two — I've tested it with my friends.
 
-**NOTE** Verify the required [build prerequisites](https://github.com/neovim/neovim/wiki/Building-Neovim#build-prerequisites) for your system.
-
-```sh
-git clone https://github.com/neovim/neovim.git
-cd neovim
-git checkout release-0.9
-make CMAKE_BUILD_TYPE=Release
-sudo make install
-```
-
-## Install the config
-
-Make sure to remove or backup your current `nvim` directory
-
-```sh
-git clone https://github.com/LunarVim/nvim-basic-ide.git ~/.config/nvim
-```
-
-Run `nvim` and wait for the plugins to be installed
-
-**NOTE** (You will notice treesitter pulling in a bunch of parsers the next time you open Neovim)
-
-**NOTE** Checkout this file for some predefined keymaps: [keymaps](https://github.com/LunarVim/nvim-basic-ide/tree/master/lua/keymaps.lua)
-
-## Get healthy
-
-Open `nvim` and enter the following:
-
-```
-:checkhealth
-```
-
-You'll probably notice you don't have support for copy/paste also that python and node haven't been setup
-
-So let's fix that
-
-First we'll fix copy/paste
-
-- On mac `pbcopy` should be builtin
-
-- On Ubuntu
-
-  ```sh
-  sudo apt install xsel # for X11
-  sudo apt install wl-clipboard # for wayland
-  ```
-
-Next we need to install python support (node is optional)
-
-- Neovim python support
-
-  ```sh
-  pip install pynvim
-  ```
-
-- Neovim node support
-
-  ```sh
-  npm i -g neovim
-  ```
-
-We will also need `ripgrep` for Telescope to work:
-
-- Ripgrep
-
-  ```sh
-  sudo apt install ripgrep
-  ```
-
----
-
-**NOTE** make sure you have [node](https://nodejs.org/en/) installed, I recommend a node manager like [fnm](https://github.com/Schniz/fnm).
-
-## Fonts
-
-I recommend using the following repo to get a "Nerd Font" (Font that supports icons)
-
-[getnf](https://github.com/ronniedroid/getnf)
-
-## Configuration
-
-### LSP
-
-To add a new LSP
-
-First Enter:
-
-```
-:Mason
-```
-
-and press `i` on the Language Server you wish to install
-
-Next you will need to add the server to this list: [servers](https://github.com/LunarVim/nvim-basic-ide/tree/master/lua/utils/init.lua#L3)
-Note: Builtin LSP doesn't contain all lsps from [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#terraform_lsp).
-
-If you want to install any from there, for example terraform_lsp(which adds more functionality than terraformls, like complete resource listing),
-
-1. You can add the lsp name in [mason lsp block](https://github.com/LunarVim/nvim-basic-ide/tree/master/user/utils/init.lua#L3-L13)
-
-```lua
--- lua/utils/init.lua
-M.servers = {
-	"lua_ls",
-	"cssls",
-	"html",
-	"tsserver",
-	"pyright",
-	"bashls",
-	"jsonls",
-	"yamlls",
-    	"terraform_lsp" -- New LSP
-}
-```
-
-2. Manually install the binary of the lsp and put it in your path by downloading the binary or through your package manager. For terraform_lsp [example](https://github.com/juliosueiras/terraform-lsp/releases)
-
-### Formatters and linters
-
-Make sure the formatter or linter is installed and add it to this setup function: [null-ls](https://github.com/LunarVim/nvim-basic-ide/blob/e6b6c96280ca730a2564f2e36050df055acfb1a8/lua/user/null-ls.lua#L22)
-
-**NOTE** Some are already setup as examples, remove them if you want
-
-### Plugins
-
-### You can install new plugins here: [plugins](https://github.com/LunarVim/nvim-basic-ide/tree/master/lua/user)
-
-Heres the wiki for installing new plugins refer to this: [wiki](https://github.com/LunarVim/nvim-basic-ide/wiki/adding_new_plugins)
-
-## Plugins
-
-- [lazy](https://github.com/folke/lazy.nvim)
-- [plenary](https://github.com/nvim-lua/plenary.nvim)
-- [nvim-autopairs](https://github.com/windwp/nvim-autopairs)
-- [Comment.nvim](https://github.com/numToStr/Comment.nvim)
-- [nvim-ts-context-commentstring](https://github.com/JoosepAlviste/nvim-ts-context-commentstring)
-- [nvim-web-devicons](https://github.com/nvim-tree/nvim-web-devicons)
-- [nvim-tree.lua](https://github.com/kyazdani42/nvim-tree.lua)
-- [bufferline.nvim](https://github.com/akinsho/bufferline.nvim)
-- [bufdelete.nvim](https://github.com/famiu/bufdelete.nvim)
-- [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim)
-- [toggleterm.nvim](https://github.com/akinsho/toggleterm.nvim)
-- [project.nvim](https://github.com/ahmedkhalf/project.nvim)
-- [impatient.nvim](https://github.com/lewis6991/impatient.nvim)
-- [indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim)
-- [alpha-nvim](https://github.com/goolord/alpha-nvim)
-- [tokyonight.nvim](https://github.com/folke/tokyonight.nvim)
-- [nvim-cmp](https://github.com/hrsh7th/nvim-cmp)
-- [cmp-buffer](https://github.com/hrsh7th/cmp-buffer)
-- [cmp-path](https://github.com/hrsh7th/cmp-path)
-- [cmp_luasnip](https://github.com/saadparwaiz1/cmp_luasnip)
-- [cmp-nvim-lsp](https://github.com/hrsh7th/cmp-nvim-lsp)
-- [cmp-nvim-lua](https://github.com/hrsh7th/cmp-nvim-lua)
-- [LuaSnip](https://github.com/L3MON4D3/LuaSnip)
-- [friendly-snippets](https://github.com/rafamadriz/friendly-snippets)
-- [mason.nvim](https://github.com/williamboman/mason.nvim)
-- [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)
-- [mason-lspconfig.nvim](https://github.com/williamboman/mason-lspconfig.nvim)
-- [null-ls.nvim](https://github.com/jose-elias-alvarez/null-ls.nvim)
-- [vim-illuminate](https://github.com/RRethy/vim-illuminate)
-- [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
-- [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
-- [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim)
-- [nvim-dap](https://github.com/mfussenegger/nvim-dap)
-- [nvim-dap-ui](https://github.com/rcarriga/nvim-dap-ui)
-- [DAPInstall.nvim](https://github.com/ravenxrz/DAPInstall.nvim)
-- [which-key.nvim](https://github.com/folke/which-key.nvim)
-
----
-
-> The computing scientist's main challenge is not to get confused by the complexities of his own making.
-
-\- Edsger W. Dijkstra
+## Credits
+- [nvim-basic-ide](https://github.com/LunarVim/nvim-basic-ide): I've grown my configuration from it, and my configuration eventually grown into EdenVim.
+- [LazyVim](https://github.com/LazyVim/LazyVim): For me, this configuration is one of the best "full-blown" configurations in terms of code quality, extensibility, and design.
+- [NvChad](https://github.com/NvChad/NvChad): This configuration showed me both how valuable simplicity is and how easy it is to make something complex.
