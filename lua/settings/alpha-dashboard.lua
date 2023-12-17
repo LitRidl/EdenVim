@@ -50,7 +50,7 @@ local buttons = {
     { type = "padding", val = 1 },
     button("e", "󰝒 " .. " New file", ":ene <BAR> startinsert<cr>"),
     button("f", "󰱼 " .. " Find file", ":Telescope find_files<cr>"),
-    button("r", " " .. " Recent files", ":Telescope oldfiles<cr>"),
+    button("r", " " .. " Recent files", ":Telescope oldfiles<cr>"),
     button("t", "󱎸 " .. " Find text in files", ":Telescope live_grep<cr>"),
     button("s", " " .. " Sessions", ":lua require('mini.sessions').select()<cr>"),
     button("m", "󰸕 " .. " Bookmarks", "Telescope marks<cr>"),

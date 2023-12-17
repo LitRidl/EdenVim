@@ -5,8 +5,10 @@ local M = {
     -- dark, darker, cool, deep, warm, warmer, light
     style = vim.g.eden_theme_variant or "dark",
     transparent = vim.g.eden_transparent or false,
+    lualine = {
+      transparent = true,
+    },
   },
-
 }
 
 function M.config(_, opts)

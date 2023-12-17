@@ -25,6 +25,11 @@ local M = {
       ["<leader>u"] = { name = "+ui & toggling (wordwrap, etc)" },
       ["<leader>x"] = { name = "+diagnostics/quickfix" },
     },
+    icons = {
+      separator = "󱦰", -- symbol used between a key and it's label
+      -- breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
+      -- group = "+", -- symbol prepended to a group
+    },
     window = {
       -- If it's difficult to distinguish which-key popup from the background, uncomment this
       -- border = "single",
