@@ -182,7 +182,7 @@ map("n", "<leader>fc", "<cmd>Telescope commands<cr>", { desc = "Search commands"
 map("n", "<leader>fk", "<cmd>Telescope keymaps<cR>", { desc = "Search keymaps" })
 -- Also, `<leader>fE` and `<leader>fe` to open mini.files file explorer [lua/plugins/mini-files.lua]
 
-map("n", "<leader>u", "<cmd>Telescope undo<cr>", { desc = "Search through undo history" })
+map("n", "<leader>U", "<cmd>Telescope undo<cr>", { desc = "Search through undo history" })
 
 -- Aerial
 map("n", "<leader>fs", "<cmd>AerialToggle!<cr>", { desc = "Toggle symbols explorer" })
