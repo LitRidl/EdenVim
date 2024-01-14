@@ -16,7 +16,7 @@ local M = {
     -- for ensure_installed, see config() below
 
     ignore_install = { "" }, -- List of parsers to ignore installing
-    sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
+    sync_install = false,    -- install languages synchronously (only applied to `ensure_installed`)
 
     highlight = {
       enable = true,
@@ -35,10 +35,11 @@ local M = {
       -- disable = { "python", "css" }
     },
 
-    context_commentstring = {
-      enable = true,
-      enable_autocmd = false,
-    },
+    -- Treesitter module deprecated in favor of require("ts_context_commentstring").setup { ... }
+    -- context_commentstring = {
+    --   enable = true,
+    --   enable_autocmd = false,
+    -- },
 
     incremental_selection = {
       enable = true,
@@ -111,7 +112,7 @@ local M = {
     playground = {
       enable = false,
       disable = {},
-      updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+      updatetime = 25,         -- Debounced time for highlighting nodes in the playground from source code
       persist_queries = false, -- Whether the query persists across vim sessions
       keybindings = {
         toggle_query_editor = "o",
@@ -128,7 +129,7 @@ local M = {
     },
     rainbow = {
       enable = false,
-      extended_mode = true, -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
+      extended_mode = true,  -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
       max_file_lines = 1000, -- Do not enable for files with more than 1000 lines, int
     },
   },
@@ -136,6 +137,9 @@ local M = {
 
 function M.config(_, opts)
   opts.ensure_installed = require("settings.toolset").ts_languages
+  require("ts_context_commentstring").setup {
+    enable_autocmd = false,
+  }
   require("nvim-treesitter.configs").setup(opts)
 end
 
