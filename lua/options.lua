@@ -11,6 +11,8 @@ g.eden_transparent = true        -- makes the background of g.eden_theme transpa
 g.eden_theme = "gruvbox"         -- edenVim-specific theme name (look lua/plugins/colorscheme.lua)
 g.eden_theme_variant = "dark"    -- theme variant for g.eden_theme. Comment to use the default variant for each theme
 
+g.eden_header = "small"          -- "big" or "small" header
+
 -- vim.o.background = "dark"
 -- Hide '~' shown on every line after EOF by replacing it with ' ', improve fold charasters
 ---@diagnostic disable-next-line: assign-type-mismatch
