@@ -19,7 +19,7 @@ local opts = {
       --       url = "https://example.com/schema/bar.json",
       --     },
       --   },
-      },
+      -- },
     },
   },
   setup = {
