@@ -13,6 +13,8 @@ g.eden_theme_variant = "dark"    -- theme variant for g.eden_theme. Comment to u
 
 g.eden_header = "small"          -- "big" or "small" header
 
+opt.guifont = "monospace:h12"    -- font used in Neovim GUI apps like Neovide
+
 -- vim.o.background = "dark"
 -- Hide '~' shown on every line after EOF by replacing it with ' ', improve fold charasters
 ---@diagnostic disable-next-line: assign-type-mismatch
@@ -56,7 +58,6 @@ opt.signcolumn = "yes"                      -- always show the sign column, othe
 opt.wrap = false                            -- display lines as one long line (line wrapping)
 opt.scrolloff = 8                           -- minimal number of screen lines to keep above and below the cursor
 opt.sidescrolloff = 8                       -- minimal number of screen columns to keep to the left and right of the cursor if wrap is `false`
-opt.guifont = "monospace:h12"               -- the font used in graphical neovim applications
 opt.shortmess:append "c"                    -- hide all the completion messages, e.g. "-- XXX completion (YYY)", "match 1 of 2", "The only match", "Pattern not found"
 opt.whichwrap:append "<,>,[,],h,l"          -- keys allowed to move to the previous/next line when the beginning/end of line is reached
 opt.iskeyword:append "-"                    -- treats words with `-` as single words
