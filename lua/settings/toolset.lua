@@ -80,7 +80,7 @@ M.null_ls = {
   "asmfmt",
   "black",
   "buf",
-  "clang-format",
+  -- "clang-format",
   "hadolint",
   -- "google_java_format",
   "isort",
