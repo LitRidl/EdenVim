@@ -18,6 +18,7 @@ local M = {
   event = "VeryLazy",
 
   dependencies = {
+    "nvim-neotest/nvim-nio",
 
     -- An IDE-like UI for DAP (inspired by LunarVim/nvim-basic-ide)
     -- https://github.com/rcarriga/nvim-dap-ui
