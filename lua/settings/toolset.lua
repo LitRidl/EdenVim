@@ -24,6 +24,7 @@ M.ts_languages = {
   "luap",
   "markdown",
   "markdown_inline",
+  "nix",
   "proto",
   "python",
   "query",
