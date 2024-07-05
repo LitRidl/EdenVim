@@ -43,4 +43,6 @@ luac.out
 plugin/packer_compiled.lua
 java-debug/
 vscode-java-test/
-lazy-lock.json
+
+# Uncomment if you don't want Lazy Restore feature
+# lazy-lock.json
