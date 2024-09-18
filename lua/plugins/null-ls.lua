@@ -1,8 +1,8 @@
 -- null-ls sources are able to hook into the following LSP features like code actions, formatting, diagnostics
--- https://github.com/jose-elias-alvarez/null-ls.nvim
+-- https://github.com/nvimtools/none-ls.nvim (original: jose-elias-alvarez/null-ls.nvim)
 
 local M = {
-  "jose-elias-alvarez/null-ls.nvim",
+  "nvimtools/none-ls.nvim",
   enabled = true,
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
