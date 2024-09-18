@@ -99,7 +99,7 @@ local M = {
     -- https://github.com/jay-babu/mason-nvim-dap.nvim
     {
       "jay-babu/mason-nvim-dap.nvim",
-      enabled = true,
+      enabled = vim.g.mason_enabled,
       dependencies = "williamboman/mason.nvim",
       cmd = { "DapInstall", "DapUninstall" },
       opts = {

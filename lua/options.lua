@@ -1,6 +1,11 @@
 local g = vim.g
 local opt = vim.opt
 
+-- Mason is used to grab LSP, Debug, and linting tools specified in settings/toolset.lua
+-- Disabling Mason is useful when you manage tools yourself (system-wide packages, Nix shells or nix-managed system, etc)
+-- People prefer having Mason enabled on tradional non-atomic/non-reproducible systems like Arch or Debian without Nix on them
+g.mason_enabled = true;
+
 -- Pre-installed themes and their styles/variants:
 --   catppuccin: latte, frappe, macchiato, mocha
 --   monokai-pro: classic, octagon, pro, machine, ristretto, spectrum

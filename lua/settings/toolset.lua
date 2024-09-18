@@ -41,6 +41,10 @@ M.ts_languages = {
   "zig",
 }
 
+-- NOTE: following tools rely on Mason installation. 
+-- If you manage LSP, linters, and other tools yourself -- please consider 
+-- setting g.mason_enabled = false in options.lua to avoid conflicts 
+
 -- LSP Servers according to mason-lspconfig, used in lua/plugins/lspconfig.lua and lua/plugins/mason.lua
 -- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/README.md#available-lsp-servers
 M.lsp_servers = {

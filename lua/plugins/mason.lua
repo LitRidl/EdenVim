@@ -4,7 +4,7 @@
 local M = {
   {
     "williamboman/mason.nvim",
-    enabled = true,
+    enabled = vim.g.mason_enabled,
     cmd = "Mason",
     build = ":MasonUpdate",
     dependencies = {
@@ -39,6 +39,7 @@ local M = {
     -- Integrates mason with null-ls -- first of all, it gives automatic installation of null-ls items
     -- https://github.com/jay-babu/mason-null-ls.nvim
     "jay-babu/mason-null-ls.nvim",
+    enabled = vim.g.mason_enabled,
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       "williamboman/mason.nvim",

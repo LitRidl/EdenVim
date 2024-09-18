@@ -8,7 +8,10 @@ local M = {
   dependencies = {
     -- Package manager: install and manage LSP servers, DAP servers, linters, and formatters
     -- https://github.com/williamboman/mason.nvim
-    "williamboman/mason.nvim",
+    {
+      "williamboman/mason.nvim",
+      enabled = vim.g.mason_enabled,
+    },
     -- Source for neovim builtin LSP client
     -- https://github.com/hrsh7th/cmp-nvim-lsp
     "hrsh7th/cmp-nvim-lsp",
