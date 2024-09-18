@@ -60,7 +60,7 @@ M.lsp_servers = {
   "rust_analyzer",
   "svelte",
   "taplo",
-  "tsserver",
+  "ts_ls",
   "yamlls",
   "zls",
 }
