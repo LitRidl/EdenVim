@@ -30,7 +30,7 @@ local M = {
       -- breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
       -- group = "+", -- symbol prepended to a group
     },
-    window = {
+    win = {
       -- If it's difficult to distinguish which-key popup from the background, uncomment this
       -- border = "single",
     },
