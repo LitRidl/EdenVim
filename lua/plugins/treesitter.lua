@@ -18,6 +18,10 @@ local M = {
     ignore_install = { "" }, -- List of parsers to ignore installing
     sync_install = false,    -- install languages synchronously (only applied to `ensure_installed`)
 
+    -- Automatically install missing parsers when entering buffer
+    -- set to false if you don't have tree-sitter CLI installed
+    auto_install = true;
+
     highlight = {
       enable = true,
       disable = function(_, bufnr)

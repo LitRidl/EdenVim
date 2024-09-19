@@ -48,9 +48,13 @@ local M = {
     config = function(_, opts)
       require("mason").setup()
       require("mason-null-ls").setup {
-        ensure_installed = require("settings.toolset").null_ls,
-        -- Aautomatically install mason-available tools based on sources in `null-ls`.
-        automatic_installation = false,
+        -- Using null-ls as a primary source of truth to enable an option of not using mason
+        -- When mason is disabled -- recommended for Nix/NixOS -- null-ls will still work,
+        -- it just won't use tool auto-installation of mason
+        -- https://github.com/jay-babu/mason-null-ls.nvim?tab=readme-ov-file#setup
+        ensure_installed = nil,
+        -- Automatically install mason-available tools based on sources in `null-ls`.
+        automatic_installation = true,
         handlers = {},
       }
       -- Please add packages not supported by mason to lua/plugins/null-ls.lua, key `sources`
