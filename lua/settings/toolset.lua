@@ -34,6 +34,7 @@ M.ts_languages = {
   "markdown",
   "markdown_inline",
   "nix",
+  "printf",
   "proto",
   "python",
   "query",
