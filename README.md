@@ -4,23 +4,22 @@ A perfect starting point for your personal, full-featured Neovim config. No conv
 
 If you came here looking for a pre-made, full-blown Neovim IDE, then you also may be in the right place, actually. Chances are you're on the same path I was — [Why EdenVim? My Neovim Journey](#why-edenvim--my-neovim-journey).
 
-As a bonus, your Neovim configuration would [work the same way on NixOS](#using-edenvim-based-configurations-with-nix-and-nixos), too!
+As a bonus, your Neovim configuration would [work the same way on Nix-based systems like NixOS](#using-edenvim-based-configurations-with-nix-and-nixos), too!
 
 ## Features
 
-- 🍴**Fork & Craft**🎨 This is _your_ configuration, it's the starting point. No _"we have **our** base configuration, don't touch it, clone a starter repository and go with it_". If you don't want to maintain plugin versions, you can pull our changes to your configuration.
-- ⚡**Fast**🚀 Lazy-loading with `Lazy.nvim` and caching of Lua bytecode with a new Neovim 0.9+ feature. On my laptop, using `:Lazy profile` gives 45 ms, compared to 90 ms for AstroNvim, 80 ms for LazyVim, and 50 ms for NvChad.
-- 🪶**Small**🔍 ~2500 lines of code, mostly plugin settings and explicitly defined defaults. Plus, ~500 lines of comments.
-- 🏰**Stable**🪤 You are guarded from breaking changes on updates by using a mechanism based on `Lazy.nvim` lazylock files.
-- 🎮**Tools that work immediately**🧰 No need to configure `treesitter`, debug adapters, language servers, linters and diagnostics "from scratch". Furthermore, all packages install automatically using `mason.nvim` for `null-ls.nvim`, `nvim-lspconfig`, and `nvim-dap`.
-- 🪟**Out-of-the-box transparency**🌙 It just works for almost all color schemes — a feature often missing even in IDE-like configurations.
-- 🌀**No wrapping**➡️ Be it `Lazy.nvim`, `rust-tools.nvim`, or your color scheme, you use it explicitly — no _"lang packs"_, _"theme loaders"_, _"UI layers"_, etc. You can also include your own plugins from your local file system.
-- 🧶**Minimal interdependencies**📌 All related things are generally placed together, there is no approach of _"taking icons from here, fetching settings from there, extending default options from base config"_. The exception is key mappings — we keep them in one place.
-- 🌱**Extend Neovim, not replace it**💡 We want you to learn Neovim, not yet another IDE. No `<leader>tl` or `<leader>lm` instead of `:Lazy` and `:Mason`, no bindings like `<leader><tab>n` instead of simple Neovim's builtin `gt`, and so on.
-- 🦉**Simplicity over hiding**🧮 should we write a code to hide a `Switch C/C++ header/source file` keybinding while you're in a Python file? For us, the answer is no — we trust you, and your journey is simpler without extensive checks, notification code, and autocommand chains.
-- 🏆**Exceptional support of C/C++ and Rust**📚 correct configuration of `clangd_extensions.nvim`, include-based autocompletion, crate management, etc. I've personally used it to navigate some complex Rust projects and Linux kernel (for the kernel, just be sure to [generate compile_commands.json](https://github.com/torvalds/linux/blob/master/scripts/clang-tools/gen_compile_commands.py)).
-- 📐**Sane defaults for options, keymaps, basic plugins, and autocommands**✅ Things you'll do anyway. For instance, many users dislike when indenting in Virtual mode switches to Normal mode, or the inability to save a root-owned file if they forgot to use `sudo` or `sudoedit`.
-- 💡**Modern obsessively picked plugins**🎯 You'll notice how `typescript-tools.nvim` outperforms `typescript-language-server` in a large project, how `flash.nvim` really exceeds `hop.nvim`, how `mini.ai` elevates text objects to a whole new level, and a lot more.
+- 🍴**Fork & Craft** This is _your_ configuration, the starting point. No _"don't touch **our** base config, clone a starter repository and go with it_".
+- 🏰**But enjoy stability** Protected from breaking changes via Lazy.nvim lockfile. If you forked, just pull our changes to your configuration, no need to maintain plugin versions.
+- ⚡**Fast** 45ms startup with lazy-loading and Lua bytecode caching (vs 90ms AstroNvim, 80ms LazyVim, 50ms NvChad).
+- 🪶**Small** ~2500 lines of code, mostly plugin settings and explicitly defined defaults.
+- 🎮**Tools that work immediately** Pre-configured common LSP, debug adapters, linters, and diagnostics installed automatically using `mason.nvim` or externally with tools like Nix.
+- 🪟**Out-of-the-box transparency** It just works for most color schemes.
+- 🌀**No wrapping** Direct plugin usage — use everything explicitly, no _"lang packs"_ or _"theme loaders".
+- 🧶**Minimal interdependencies** Related things are placed together, no _"taking icons from here, fetching settings from there, extending default options"_. The exception is key mappings — we keep them in one place.
+- 🌱**Extend Neovim, not replace it** We want you to learn Neovim, not another IDE. No `<leader>lm` instead of `:Mason` or `<leader><tab>n` instead of builtin `gt`, and so on.
+- 🦉**Simplicity over hiding** should we write code to hide a `Switch C/C++ header/source file` keybinding when you're in a Python file? For us, the answer is no — we trust you, and your journey is simpler without extensive checks and autocommand chains.
+- 🏆**Exceptional support of C/C++ and Rust** Correct configuration of `clangd_extensions.nvim`, include-based autocompletion, etc. I used it to navigate complex Rust projects and Linux kernel (just be sure to [generate compile_commands.json for kernel](https://github.com/torvalds/linux/blob/master/scripts/clang-tools/gen_compile_commands.py)).
+- 🎯**Sane defaults** Things you'll do anyway. For instance, many dislike being unable to save a root-owned file if they forgot to use `sudo` or `sudoedit`.
 
 ## Why EdenVim? My Neovim Journey
 
