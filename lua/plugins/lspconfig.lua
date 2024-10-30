@@ -22,9 +22,15 @@ local M = {
     -- To add your own schemas, refer to https://github.com/b0o/SchemaStore.nvim
     "b0o/schemastore.nvim",
   },
+  opts = {
+    inlay_hints = {
+      enabled = true,
+      -- exclude = { "vue" },     -- filetypes for which you don't want to enable inlay hints
+    },
+  },
 }
 
-function M.config()
+function M.config(_, opts)
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   capabilities = require("cmp_nvim_lsp").default_capabilities(M.capabilities)
@@ -61,7 +67,7 @@ function M.config()
     vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
   end
 
-  local config = {
+  local diagnostics = {
     virtual_text = true,
     -- show signs
     signs = {
@@ -81,7 +87,7 @@ function M.config()
     },
   }
 
-  vim.diagnostic.config(config)
+  vim.diagnostic.config(diagnostics)
 
   vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
     border = "rounded",

@@ -111,6 +111,7 @@ map("n", "<leader>ur", "<cmd>set relativenumber!<cr>", { desc = "Toggle relative
 map("n", "<leader>ut", "<cmd>set expandtab!<cr>", { desc = "Toggle spaces/tab in Insert mode" })
 -- I think it's better to V-select your lines, do `!cat -A`, watch for strange characters, and undo `cat -A` with `u`
 map("n", "<leader>uh", "<cmd>set list!<cr>", { desc = "Toggle tab/trailing spaces/nbsp visibility" })
+map("n", "<leader>ui", function () vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end, { desc = "Toggle Inlay Hints" })
 
 -- Interactive browsing & setting of any options -- when on a set line, hit Enter to cycle through the values
 -- If changing a number/string, do the change in Insert mode and then hit Enter
