@@ -87,6 +87,10 @@ for i = 1, 9 do
 end
 map("n", "<leader>$", goto_buf(-1), { desc = "Go to the last buffer" })
 
+-- better-escape replacement: return to normal mode by rapidly pressing `jk`
+-- Delete the keymap or decrease opt.timeoutlen in options.lua if false positives happen
+map("i", "jk", "<esc>", { desc = "Return to Normal mode (sends <esc>)" })
+
 -- Clear highlights
 map("n", "<esc>", ":noh<cr>", { desc = "Clear highlights" })
 map("n", "<leader>h", ":noh<cr>", { desc = "Clear highlights" })
