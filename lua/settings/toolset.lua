@@ -108,6 +108,9 @@ M.debug_tools = {
 -- null-ls is a bridge between non-LSP language tools and the LSP ecosystem.
 -- In ideal world, when each LSP server is perfect, there is no need for it.
 -- This list is used in plugins/null_ls and plugins/mason
+-- NOTE: some sources like gitsigns are null-ls built-ins and cause harmless errors
+-- when mason tries to install them. Still, to avoid errors, you can exclude them
+-- in plugins/mason.lua by specifying void handlers: handlers = { gitsigns = function() end }
 M.null_ls_sources = function (null_ls)
   return {
     null_ls.builtins.code_actions.gitsigns,

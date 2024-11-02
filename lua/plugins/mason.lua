@@ -65,7 +65,12 @@ local M = {
         ensure_installed = nil,
         -- Automatically install mason-available tools based on sources in `null-ls`.
         automatic_installation = true,
-        handlers = {},
+        handlers = {
+          -- Exclude builtins that don't have corresponding Mason packages
+          gitsigns = function() end,
+          printenv = function() end,
+          -- Add other builtins to exclude as needed
+        },
       }
       -- Please add packages not supported by mason to lua/plugins/null-ls.lua, key `sources`
     end,
