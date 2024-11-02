@@ -27,8 +27,17 @@ local M = {
     },
     config = function(_, opts)
       require("mason").setup(opts)
+
+      -- Attempt to install LSP servers available through Mason: try every server in lsp_servers from settings/toolset.lua,
+      -- except those defined in lsp_with_no_mason (i.e., lsp_with_no_mason is subtracted from lsp_servers)
+      local settings = require("settings.toolset")
       require("mason-lspconfig").setup {
-        ensure_installed = require("settings.toolset").lsp_servers,
+          ensure_installed = vim.tbl_filter(
+            function(server)
+              return not vim.tbl_contains(settings.lsp_with_no_mason, server)
+            end,
+            settings.lsp_servers
+          ),
         -- Not related to ensure_installed. If servers are set up via nvim-lspconfig, but not installed, it tries to install them
         automatic_installation = false,
       }

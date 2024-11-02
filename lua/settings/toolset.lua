@@ -55,9 +55,9 @@ M.ts_languages = {
   "yaml",
 }
 
--- NOTE: following tools rely on Mason installation. 
+-- NOTE: following tools rely on Mason installation (except for lsp_with_no_mason)
 -- If you manage LSP, linters, and other tools yourself -- please consider 
--- setting g.mason_enabled = false in options.lua to avoid conflicts 
+-- setting g.mason_enabled = false in options.lua to avoid conflicts
 
 -- LSP Servers according to mason-lspconfig, used in lua/plugins/lspconfig.lua and lua/plugins/mason.lua
 -- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/README.md#available-lsp-servers
@@ -78,10 +78,19 @@ M.lsp_servers = {
   "basedpyright",
   "ruff",
   "nixd",
+  "nil_ls",
   "rust_analyzer",
   "taplo",
   "ts_ls",
   "yamlls",
+}
+
+-- Some LSP servers are not provided by mason and need to be installed externally
+-- If you add an entry to lsp_servers and see an error about ensure_installed, 
+-- you can add it to this list to exclude it from mason auto-installation
+-- To look up for servers in mason registry, see https://mason-registry.dev/registry/list
+M.lsp_with_no_mason = {
+  "nixd",
 }
 
 -- Debuggers for mason-nvim-dap.nvim
