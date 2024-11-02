@@ -1,8 +1,19 @@
-return {
+local opts = {
   settings = {
     Lua = {
       diagnostics = {
         globals = { "vim" },
+      },
+      codeLens = {
+        enable = true,
+      },
+      hint = {
+        enable = true,
+        setType = false,
+        paramType = true,
+        paramName = "Disable",
+        semicolon = "Disable",
+        arrayIndex = "Disable",
       },
       workspace = {
         library = {
@@ -14,7 +25,7 @@ return {
           -- That's an issue in LunarVim: https://github.com/LunarVim/LunarVim/issues/4049
           "${3rd}/luv/library",
         },
-        -- Slightly less correct way to fix the issue mentioned above
+        -- Slightly less correct way to fix the issue mentioned above. Uncomment if can't configure above
         -- checkThirdParty = false,
       },
       telemetry = {
@@ -23,3 +34,5 @@ return {
     },
   },
 }
+
+return opts
