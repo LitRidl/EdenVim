@@ -2,11 +2,10 @@
 
 local M = {}
 
--- Treesitter languages for automatic installation by ../plugins/treesitter.lua
+-- Treesitter languages for automatic installation
 -- NOTE: if `auto_install = true` in ../plugins/treesitter.lua, grammars are installed
--- automatically and don't have to be specified here. For this to work, ensure that you
--- have `tree-sitter` CLI tool available. Otherwise, you can manually specify grammars
--- in the list below: they are guaranteed to be installed even if you never used them.
+-- automatically on demand if `tree-sitter` CLI tool is available. Otherwise, you can manually
+-- specify grammars in the list below -- they will be pre-installed even if you never use them.
 M.ts_languages = {
   "bash",
   "c",
@@ -56,41 +55,43 @@ M.ts_languages = {
 }
 
 -- NOTE: following tools rely on Mason installation (except for lsp_with_no_mason)
--- If you manage LSP, linters, and other tools yourself -- please consider 
--- setting g.mason_enabled = false in options.lua to avoid conflicts
+-- If you manage LSP, linters, and other tools yourself, set g.mason_enabled = false in options.lua
 
 -- LSP Servers according to mason-lspconfig, used in lua/plugins/lspconfig.lua and lua/plugins/mason.lua
 -- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/README.md#available-lsp-servers
+-- Each LSP server specified here may have a custom configuration file in lua/settings/{lsp_server}.lua
+-- which is loaded by lspconfig automatically. For example, if nixd.lua exists, it will be used to configure nixd
 M.lsp_servers = {
+  "basedpyright",
   "bashls", -- bash-language-server
   "bufls",  -- buf-language-server
   -- Note for C/C++: for complex projects like Linux kernel, clang relies on "JSON compilation database"
   -- Use https://github.com/rizsotto/Bear to "wrap" build process and autogenerate compile_commands.json
   "clangd",
-  "gopls",
   "cssls",
   "dockerls",
-  "terraformls",
   "emmet_language_server",
+  "gopls",
   "html",
   "jsonls",
   "lua_ls",
-  "basedpyright",
-  "ruff",
-  "nixd",
   "nil_ls",
+  -- Edit settings/nixd.lua for better Nix autocompletion
+  "nixd",
+  "ruff",
   "rust_analyzer",
   "taplo",
+  "terraformls",
   "ts_ls",
   "yamlls",
 }
-
--- Some LSP servers are not provided by mason and need to be installed externally
--- If you add an entry to lsp_servers and see an error about ensure_installed, 
+-- LSP servers that need external installation (not available via Mason)
+-- If you add an entry to lsp_servers and see an error about ensure_installed,
 -- you can add it to this list to exclude it from mason auto-installation
--- To look up for servers in mason registry, see https://mason-registry.dev/registry/list
+-- To look up servers in mason registry, see https://mason-registry.dev/registry/list
 M.lsp_with_no_mason = {
   "nixd",
+  "nil_ls",
 }
 
 -- Debuggers for mason-nvim-dap.nvim
@@ -105,13 +106,11 @@ M.debug_tools = {
   -- "firefox", -- same as node2
 }
 
--- null-ls is a bridge between non-LSP language tools and the LSP ecosystem.
+-- null-ls/none-ls is a bridge between non-LSP language tools and the LSP ecosystem.
 -- In ideal world, when each LSP server is perfect, there is no need for it.
--- This list is used in plugins/null_ls and plugins/mason
--- NOTE: some sources like gitsigns are null-ls built-ins and cause harmless errors
--- when mason tries to install them. Still, to avoid errors, you can exclude them
--- in plugins/mason.lua by specifying void handlers: handlers = { gitsigns = function() end }
-M.null_ls_sources = function (null_ls)
+-- This sources list is used in plugins/null_ls.lua and plugins/mason.lua
+-- NOTE: Some built-in sources (like gitsigns) cause harmless Mason installation errors. You can exclude them in plugins/mason.lua
+M.null_ls_sources = function(null_ls)
   return {
     null_ls.builtins.code_actions.gitsigns,
     null_ls.builtins.code_actions.gomodifytags,
@@ -142,12 +141,5 @@ M.null_ls_sources = function (null_ls)
     null_ls.builtins.hover.printenv,
   }
 end
-
--- General Mason packages (no automatic installation: listed just for the reference)
--- https://github.com/mason-org/mason-registry/tree/main/packages
-M.tools = {}
-
--- Note: take a look at `lua/plugins/null-ls.lua` below the `null_ls.setup {` line:
--- some tools like ruff (as a python diagnostics tool) are specified there
 
 return M

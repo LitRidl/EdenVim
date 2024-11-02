@@ -32,12 +32,12 @@ local M = {
       -- except those defined in lsp_with_no_mason (i.e., lsp_with_no_mason is subtracted from lsp_servers)
       local settings = require("settings.toolset")
       require("mason-lspconfig").setup {
-          ensure_installed = vim.tbl_filter(
-            function(server)
-              return not vim.tbl_contains(settings.lsp_with_no_mason, server)
-            end,
-            settings.lsp_servers
-          ),
+        ensure_installed = vim.tbl_filter(
+          function(server)
+            return not vim.tbl_contains(settings.lsp_with_no_mason, server)
+          end,
+          settings.lsp_servers
+        ),
         -- Not related to ensure_installed. If servers are set up via nvim-lspconfig, but not installed, it tries to install them
         automatic_installation = false,
       }
@@ -56,7 +56,6 @@ local M = {
       "nvimtools/none-ls.nvim",
     },
     config = function(_, opts)
-      require("mason").setup()
       require("mason-null-ls").setup {
         -- Using null-ls as a primary source of truth to enable an option of not using mason
         -- When mason is disabled -- recommended for Nix/NixOS -- null-ls will still work,
@@ -64,13 +63,8 @@ local M = {
         -- https://github.com/jay-babu/mason-null-ls.nvim?tab=readme-ov-file#setup
         ensure_installed = nil,
         -- Automatically install mason-available tools based on sources in `null-ls`.
-        automatic_installation = true,
-        handlers = {
-          -- Exclude builtins that don't have corresponding Mason packages
-          gitsigns = function() end,
-          printenv = function() end,
-          -- Add other builtins to exclude as needed
-        },
+        automatic_installation = { exclude = { "gitsigns", "printenv" } },
+        handlers = {},
       }
       -- Please add packages not supported by mason to lua/plugins/null-ls.lua, key `sources`
     end,
