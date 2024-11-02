@@ -78,7 +78,6 @@ M.lsp_servers = {
   "basedpyright",
   "ruff",
   "nixd",
-  "statix",
   "rust_analyzer",
   "taplo",
   "ts_ls",

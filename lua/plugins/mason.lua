@@ -36,7 +36,8 @@ local M = {
   },
 
   {
-    -- Integrates mason with null-ls -- first of all, it gives automatic installation of null-ls items
+    -- Integrates mason with null-ls -- it gives automatic installation of null-ls items
+    -- NOTE: when referring to null-ls, it is actually none-ls as null-ls is not maintained anymore
     -- https://github.com/jay-babu/mason-null-ls.nvim
     "jay-babu/mason-null-ls.nvim",
     enabled = vim.g.mason_enabled,

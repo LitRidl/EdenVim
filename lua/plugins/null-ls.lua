@@ -1,4 +1,5 @@
 -- null-ls sources are able to hook into the following LSP features like code actions, formatting, diagnostics
+-- NOTE: when referring to null-ls, it is actually none-ls as null-ls is not maintained anymore
 -- https://github.com/nvimtools/none-ls.nvim (original: jose-elias-alvarez/null-ls.nvim)
 
 local M = {
