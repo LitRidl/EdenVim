@@ -10,16 +10,14 @@ If you came here looking for a pre-made, full-blown Neovim IDE, you may actually
 
 - 🍴**Fork & Craft** This is _your_ configuration, the starting point. Nothing like _"don't touch **our** base config, clone a starter repository and go with it_".
 - 🏰**But enjoy stability** Protected from breaking changes via Lazy.nvim lockfile. If you forked, just pull our changes to your configuration, no need to maintain plugin versions.
-- ⚡**Fast** 45ms startup with lazy-loading and Lua bytecode caching (vs 90ms AstroNvim, 80ms LazyVim, 50ms NvChad).
-- 🪶**Small** ~2500 lines of code, mostly plugin settings and explicitly defined defaults.
-- 🎮**Tools that work immediately** Pre-configured common LSP, debug adapters, linters, and diagnostics installed automatically using `mason.nvim` or externally with tools like Nix.
+- 🪶**Small** ~2500 lines of code, mostly plugin settings for `Lazy.nvim` and explicitly defined defaults.
+- 🎮**Tools that work immediately** Pre-configured LSP, debug adapters, and other tools installed automatically using `mason.nvim` or externally with tools like Nix.
 - 🪟**Out-of-the-box transparency** Works seamlessly with popular color schemes.
 - 🌀**No wrapping** Direct plugin usage — use everything explicitly, no _"lang packs"_ or _"theme loaders".
 - 🧶**Minimal interdependencies** Related things are placed together, no _"taking icons from here, fetching settings from there, extending default options"_. The exception is key mappings — we keep them in one place.
 - 🌱**Extend Neovim, not replace it** We want you to learn Neovim, not another IDE. No `<leader>lm` instead of `:Mason` or `<leader><tab>n` instead of builtin `gt`, and so on.
 - 🦉**Simplicity over hiding** Should we write code to hide a `Switch C/C++ header/source file` keybinding when you're in a Python file? For us, the answer is no — we trust you, and your journey is simpler without extensive checks and autocommand chains.
-- 🏆**Exceptional support of C/C++ and Rust** Correct configuration of `clangd_extensions.nvim`, include-based autocompletion, etc. I used it to navigate complex Rust projects and Linux kernel (just be sure to [generate compile_commands.json for kernel](https://github.com/torvalds/linux/blob/master/scripts/clang-tools/gen_compile_commands.py)).
-- 🎯**Sane defaults** Things you'll do anyway. For instance, many dislike being unable to save a root-owned file if they forgot to use `sudo` or `sudoedit`.
+- 🏆**Great support of C/C++ and Rust** Correct configuration of `clangd_extensions.nvim` with include-based autocompletion. I used it to navigate complex Rust projects and Linux kernel (just [generate compile_commands.json for kernel](https://github.com/torvalds/linux/blob/master/scripts/clang-tools/gen_compile_commands.py)).
 
 ## Why EdenVim? My Neovim Journey
 
@@ -64,6 +62,34 @@ While it's valuable to show how to work with popular tools and languages, you ca
 
 > [!TIP]
 > Modern terminal emulators like Kitty and WezTerm allow you to avoid using patched fonts. By installing the `Symbols Nerd Font` as a fallback, you can render missing glyphs without limiting yourself to pre-patched fonts. It allows you to use any ordinary font you like.
+
+## Try in Docker
+You can try EdenVim in a container if your terminal emulator supports true color and Nerd Font symbols:
+```bash
+docker run --rm -it -w /root alpine:edge sh -li -c '
+  apk add --no-cache git make neovim py3-pip npm ripgrep go rust-lldb cargo clang19-extra-tools lua-language-server
+  git clone https://github.com/LitRidl/EdenVim.git ~/.config/nvim
+  cd ~/.config/nvim
+  nvim --headless "+Lazy! restore" "+TSUpdate" "+sleep 15" "+qa"
+  nvim
+'
+```
+The command above runs EdenVim in an isolated environment. To work with real files, use Docker's volume mounting: `-v ../projects/linux:/root/work` mounts `../projects/linux` directory on your host to `/root/work` inside the container. 
+
+**Example**: mount the current directory `.` to `/root/work` inside the container:
+```bash
+docker run -it --rm -w /root -v .:/root/work alpine:edge sh -li -c '
+  apk add --no-cache git make neovim py3-pip npm ripgrep go rust-lldb cargo clang19-extra-tools lua-language-server
+  git clone https://github.com/LitRidl/EdenVim.git ~/.config/nvim
+  cd ~/.config/nvim
+  nvim --headless "+Lazy! restore" "+TSUpdate" "+sleep 15" "+qa"
+  nvim
+'
+```
+
+> [!NOTE]
+> The first Neovim launch with `--headless` is _optional_ and just ensures a cleaner experience by pre-installing plugins. The 15-second delay ensures Treesitter parsers finish compiling since TSUpdate doesn't force Neovim to wait and it proceeds to exit with `:qa`. When you start working with files, Mason will pull LSP Servers and other tools. It produces notifications that can be dismissed with Space or Enter.
+> Mason will fail to install `clangd`, but LSP will work fine as `clangd` is already installed by `apk add clang19-extra-tools`. Also, `lua-language-server` is pre-installed via `apk` to avoid frustration if you open a Lua file before Mason had a chance to install it, though Mason would eventually install it anyway.
 
 ## Installation on Linux and MacOS
 
