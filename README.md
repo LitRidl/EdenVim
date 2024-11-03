@@ -1,55 +1,129 @@
 # EdenVim — Craft your personal IDE experience
 
-A perfect starting point for your personal, full-featured Neovim config. No convoluted layers, just a clean and intuitive setup to kickstart your PDE (Personalized Development Environment) journey.
+A perfect starting point for your personal, full-featured Neovim configuration. No convoluted layers, just a clean setup to kickstart your PDE (Personalized Development Environment) journey.
 
-If you came here looking for a pre-made, full-blown Neovim IDE, then you also may be in the right place, actually. Chances are you're on the same path I was — [Why EdenVim? My Neovim Journey](#why-edenvim--my-neovim-journey).
+As a bonus, your Neovim configuration will [work the same way on Nix-based systems like NixOS](#installation-with-nix-including-nixos), too!
 
-As a bonus, your Neovim configuration would [work the same way on Nix-based systems like NixOS](#using-edenvim-based-configurations-with-nix-and-nixos), too!
+If you came here looking for a pre-made, full-blown Neovim IDE, you may actually be in the right place. Chances are you're on the same path I was — [my Neovim journey](#why-edenvim-my-neovim-journey).
 
 ## Features
 
-- 🍴**Fork & Craft** This is _your_ configuration, the starting point. No _"don't touch **our** base config, clone a starter repository and go with it_".
+- 🍴**Fork & Craft** This is _your_ configuration, the starting point. Nothing like _"don't touch **our** base config, clone a starter repository and go with it_".
 - 🏰**But enjoy stability** Protected from breaking changes via Lazy.nvim lockfile. If you forked, just pull our changes to your configuration, no need to maintain plugin versions.
 - ⚡**Fast** 45ms startup with lazy-loading and Lua bytecode caching (vs 90ms AstroNvim, 80ms LazyVim, 50ms NvChad).
 - 🪶**Small** ~2500 lines of code, mostly plugin settings and explicitly defined defaults.
 - 🎮**Tools that work immediately** Pre-configured common LSP, debug adapters, linters, and diagnostics installed automatically using `mason.nvim` or externally with tools like Nix.
-- 🪟**Out-of-the-box transparency** It just works for most color schemes.
+- 🪟**Out-of-the-box transparency** Works seamlessly with popular color schemes.
 - 🌀**No wrapping** Direct plugin usage — use everything explicitly, no _"lang packs"_ or _"theme loaders".
 - 🧶**Minimal interdependencies** Related things are placed together, no _"taking icons from here, fetching settings from there, extending default options"_. The exception is key mappings — we keep them in one place.
 - 🌱**Extend Neovim, not replace it** We want you to learn Neovim, not another IDE. No `<leader>lm` instead of `:Mason` or `<leader><tab>n` instead of builtin `gt`, and so on.
-- 🦉**Simplicity over hiding** should we write code to hide a `Switch C/C++ header/source file` keybinding when you're in a Python file? For us, the answer is no — we trust you, and your journey is simpler without extensive checks and autocommand chains.
+- 🦉**Simplicity over hiding** Should we write code to hide a `Switch C/C++ header/source file` keybinding when you're in a Python file? For us, the answer is no — we trust you, and your journey is simpler without extensive checks and autocommand chains.
 - 🏆**Exceptional support of C/C++ and Rust** Correct configuration of `clangd_extensions.nvim`, include-based autocompletion, etc. I used it to navigate complex Rust projects and Linux kernel (just be sure to [generate compile_commands.json for kernel](https://github.com/torvalds/linux/blob/master/scripts/clang-tools/gen_compile_commands.py)).
 - 🎯**Sane defaults** Things you'll do anyway. For instance, many dislike being unable to save a root-owned file if they forgot to use `sudo` or `sudoedit`.
 
 ## Why EdenVim? My Neovim Journey
 
-My path started with IDEs like IDEA, CLion, and VS Code. At first, I tried to get "the most powerful" Neovim setup. Intuitively, I treated it as a pre-made IDE, although it's a PDE platform.
+My path started with IDEs like IDEA and VS Code. At first, I tried to get _"the most powerful"_ Neovim setup. Intuitively, I treated it as a pre-made IDE, although it's a PDE platform.
 
-I tried AstroNvim, LunarVim, LazyVim, and NvChad. I was overwhelmed by complexity — not only did I have to learn Vim, Neovim, and Lua, but I also had to navigate configuration-specific abstractions. I even had to create a Neovim configuration switcher to navigate between my setups. In the end, I settled on NvChad — it felt less bloated and had a noticeable presence on YouTube.
+I tried AstroNvim, LunarVim, LazyVim, and NvChad, but found myself overwhelmed — not only did I need to learn Vim, Neovim, and Lua, but also configuration-specific abstractions. I settled on NvChad.
 
-It went well until I decided to remove "close all" and "toggle dark/light theme" buttons. For something that I've never used, they consumed too much screen real estate. Surprisingly, it became a time-consuming endeavor. I discovered that it was hard-coded in NvChad's dependencies: to fix this, I had to change the `NvChad UI` plugin, breaking all future updates.
+It went well until I decided to remove UI elements that I'd never use. What seemed like a simple task became time-consuming as these elements were hard-coded into dependencies and modifying them meant breaking future core updates.
 
-The consensus on the Neovim subreddit was clear: in the end, most people craft their own configuration. The advice is to start with templates like `Neovim-from-scratch` or `kickstart.nvim`. This time, I was sure: they're not being elitist, it is genuine advice.
+The consensus on the Neovim subreddit was clear: eventually, people often craft their own configurations. The advice was to start with templates like `Neovim-from-scratch` or `kickstart.nvim`. This time, I knew: they're not being elitist, it is genuine advice.
 
-Some templates were outdated, while others hadn't incorporated even basic tools like `Lazy.nvim`. Still, it was a breath of fresh air — you do everything yourself, gaining understanding and remembering your keymaps. I went with `nvim-basic-ide` template.
+Some templates were outdated, while others hadn't incorporated basic tools like `Lazy.nvim`. I found `nvim-basic-ide` refreshingly straightforward — doing everything myself led to better understanding and personally intuitive keymaps.
 
-Soon, a new challenge arose — plugin authors occasionally introduce literally breaking changes that can ruin your workday. This is where pre-built configurations shine — they fix updates or give the ability to rollback to the clean installation. Having taken "do it yourself" approach, I spent a lot of time creating my own full-featured stable configuration. I was lucky to have some spare time, but I doubt everyone has it.
+However, a new challenge emerged: plugin authors occasionally introduce breaking changes that can disrupt your workflow. And this is where pre-built configurations shine, as maintaining a personal configuration requires significant time investment.
 
-As you may have guessed, EdenVim is my solution — you still follow the "do it yourself" approach but with more speed and less frustration. The goal is to bridge the gaps between _"I've installed it"_, _"It works for my projects"_, and _"I can customize my PDE"_. Although these stages don't coincide in practice, the aim is to make them overlap as much as possible. Moreover, if you're familiar with Vim, you'll become productive in just a day or two — I've tested it with my friends.
+For me, EdenVim fits this gap — you follow the _"do it yourself"_ approach, but with more speed and less frustration. I want to minimize the distance between _"I've installed it"_, _"It works for my projects"_, and _"I can customize my PDE"_. If you're familiar with Vim, you can be productive in a few days, as tested with my friends.
 
-## Using EdenVim-based configurations with Nix and NixOS
+## Requirements
+
+EdenVim is pre-configured to support TypeScript, Rust, Go, Lua, C/C++, Python, and other popular languages. To get the best out-of-the box experience, ensure that recommended dependencies are available:
+
+- [Neovim](https://github.com/neovim/neovim/blob/master/INSTALL.md#install-from-package) 0.9.5+
+- A terminal emulator with true color and UTF-8 support (Kitty, alacritty, WezTerm, foot, Ghostty, etc.)
+- Clipboard tool (xclip, wl-clipboard, pbcopy, etc. `:help clipboard-tool` in Neovim for more details)
+- [Git](https://git-scm.com/) for plugin management
+- [Ripgrep](https://github.com/BurntSushi/ripgrep) for faster file search
+- [C compiler](https://gcc.gnu.org/) for treesitter compilation (cc, gcc, clang, zig, etc.)
+- [GNU Make](https://www.gnu.org/software/make/) for building plugins like telescope-fzf-native
+- [Node.js](https://nodejs.org/en/download/) with `npm` for LSP servers and tools
+- [Python](https://www.python.org/downloads/) with `pip` for LSP servers and tools
+- [Rust](https://www.rust-lang.org/tools/install) for some LSP servers
+- [LuaRocks](https://github.com/luarocks/luarocks) for some LSP servers
+- [Go](https://go.dev/doc/install) for some LSP servers
+- [A Nerd Font](https://www.nerdfonts.com/) like `JetBrains Mono Nerd Font` for icons
+
+For example, on Ubuntu 22.10, you can install dependencies globally with:
+```bash
+sudo apt install git curl neovim python3-full python3-pip golang ripgrep luarocks npm nodejs rustc cargo make gcc
+```
+
+While it's valuable to show how to work with popular tools and languages, you can customize your configuration by removing unused tools. Edit `lua/settings/toolset.lua` to do so.
+
+> [!TIP]
+> Modern terminal emulators like Kitty and WezTerm allow you to avoid using patched fonts. By installing the `Symbols Nerd Font` as a fallback, you can render missing glyphs without limiting yourself to pre-patched fonts. It allows you to use any ordinary font you like.
+
+## Installation on Linux and MacOS
+
+The idea of EdenVim is to provide a working "clean slate" for your Neovim configuration. We encourage you to:
+1. Think of a cool name for your Personal Development Environment (PDE).
+2. [Fork EdenVim](https://github.com/LitRidl/edenvim/fork) to your own repository.
+3. Use it as a starting point for your configuration.
+4. Optionally, pull updates and improvements from EdenVim to offload version management and plugin maintenance.
+
+### Step-by-Step Installation
+
+1. Back up your existing Neovim configuration (if you have one):
+```bash
+mv ~/.config/nvim ~/.config/nvim.bak
+mv ~/.local/share/nvim ~/.local/share/nvim.bak
+mv ~/.local/state/nvim ~/.local/state/nvim.bak
+```
+
+2. Clone your fork of EdenVim or the main repository:
+
+For your fork:
+```bash
+git clone https://github.com:your-username/your-fork-name.git ~/.config/nvim
+```
+
+To clone EdenVim repository:
+```bash
+git clone https://github.com/LitRidl/edenvim.git ~/.config/nvim
+```
+
+_Replace `https://` with `git@` if you have SSH access configured._
+
+3. Launch Neovim:
+```bash
+nvim
+```
+
+### First Launch
+
+On first launch, EdenVim automatically:
+- Installs the plugin manager (Lazy.nvim).
+- Downloads and installs Neovim plugins (versions pinned in lazy-lock.json).
+- Downloads and compiles Treesitter parsers.
+- Sets up Mason package manager for LSP servers, linters, and formatters.
+- Installs binary dependencies requested by mason-lspconfig, mason-dap, and mason-null-ls.
+
+Please be patient; this process may take several minutes depending on your connection, GitHub rate limiting, and system performance. You may see multiple notifications during the process.
+
+## Installation with Nix (including NixOS)
 
 Setting up Neovim on Nix-driven systems is often tricky when it comes to managing external binary dependencies like LSP servers.
 Neovim users frequently modify files in `~/.config/nvim`, and tools like `mason.nvim` dynamically install formatters, LSP servers, and other binaries at runtime.
-Both conflicts with Nix's philosophy of reproducible builds and immutability. This often results in dilemma to either go Nix-first or Neovim-first,
-which is very unsatifying as in principle, Nix and Neovim look like a match in heaven.
+This conflicts with Nix's philosophy of reproducible builds and immutability. This often results in the dilemma of choosing either Nix-first or Neovim-first, which is very unsatisfying as, in principle, Nix and Neovim seem like a match made in heaven.
 
 While excellent projects like [nixvim](https://github.com/nix-community/nixvim) offer Nix-first Neovim installations, in practice many users prefer their Neovim configuration
 to remain Nix-agnostic for portability.
 
 ### Solution: Nix for binary dependencies, Lazy.nvim for plugin management, `.config/nvim` for configuration
 
-With EdenVim, you can disable Mason-based plugins on Nix systems and manage external tools like LSP servers via Nix. This means:
+With EdenVim, you can disable Mason-based plugins on Nix systems and manage external tools like LSP servers and null-ls/none-ls tools via Nix. This means:
 
 - Your Neovim configuration remains in `~/.config/nvim` and is non-immutable, so you can customize it without rebuilding.
 - External dependencies are managed by Nix, ensuring that setup is reproducible in term of binary dependencies.
@@ -73,32 +147,39 @@ programs.neovim = {
 
 #### 2. Install LSP Servers and Tools via Nix
 
-Instead of using `mason`, `mason-lspconfig`, `mason-dap` to install binary dependencies, declare them in the `programs.neovim.extraPackages` option.
+Instead of using `mason`, `mason-lspconfig`, `mason-dap`, and `mason-null-ls` to install binary dependencies, declare them in the `programs.neovim.extraPackages` option.
 This ensures all your tools are managed by Nix and are available within Neovim when it is launched. They don't pollute global environment.
-**Note**: I cross-referenced some common tools installed by Mason (some of them extracted from VS Code) to corresponding `nixpkgs` packages, see the list in the [Full Example to Copy and Paste](#full-example-to-copy-and-paste) section.
-
 ```nix
 programs.neovim.extraPackages = with pkgs; [
+  # clang provides both LSP Server for C/C++ and a C compiler for treesitter parsers 
+  clang
   bash-language-server
   rust-analyzer
   # ... Other LSP servers, formatters, linters, etc ...
 ];
 ```
 
+> [!TIP]
+> I cross-referenced common tools installed by Mason (some of them extracted from VS Code) to corresponding `nixpkgs` packages. See the list in the [Full Example to Copy and Paste](#full-example-to-copy-and-paste) section.
+
+> [!NOTE]
+> Treesitter parsers are compiled binaries that can be managed through Nix. However, they also work well when compiled locally using `clang` which we use for C/C++ LSP anyway. To maintain consistency between Nix and non-Nix setups, EdenVim defaults to local compilation.
+> If you prefer Nix-managed parsers, add `pkgs.vimPlugins.nvim-treesitter.withAllGrammars` to `programs.neovim.plugins` and set `auto_install = false` in `lua/plugins/treesitter.lua`.
+
 #### 3. Link or Clone Your Neovim Configuration
 
-First, you can manually clone or place your Neovim configuration in `~/.config/nvim` and skip this step.
+You can manually clone or place your Neovim configuration in `~/.config/nvim` and skip this step.
 
-If you manage your Neovim configuration as a Git submodule or just a directory within your Nix-based dotfiles repository, try using a symlink.
-To keep Neovim configuration in `~/.config/nvim` editable, symlink it using the `xdg.configFile` option with the `mkOutOfStoreSymlink` function.
-It works like this: `mkOutOfStoreSymlink` returns a path in the Nix store, but the path itself is just a symlink that resolves to the specified path.
+If you manage your Neovim configuration as a Git submodule or a directory within your Nix-based dotfiles repository, use a symlink.
+To keep Neovim configuration in `~/.config/nvim` editable, symlink it using the `xdg.configFile` option with the `mkOutOfStoreSymlink` function. The function returns a path in the Nix store, but the path itself is just a symlink that resolves to the specified path.
 
 ```nix
 xdg.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink "/home/username/dotfiles/config/nvim";
 ```
 
-Make sure to replace `"/home/username/dotfiles/config/nvim"` with the **actual absolute path** to your Neovim configuration.
-If you use Flakes, your dotfiles are copied to the Nix store first, so during evaluation relative paths will resolved inside a Nix store. An absolute path ensures linking works correctly.
+> [!IMPORTANT]
+> Replace `"/home/username/dotfiles/config/nvim"` with the **absolute path** to your Neovim configuration.
+> When using Flakes, your Flake directory is first copied to the Nix store. During evaluation, relative paths are resolved within this store path rather than your home directory. Using an absolute path ensures correct symlinking.
 
 #### 4. Disable Mason
 
@@ -112,9 +193,11 @@ require("lazy").setup({
   -- ...
   spec = {
     -- ...
-    -- Disable mason.nvim, mason-lspconfig.nvim, and other mason-related plugins
+    -- Disable mason-related plugins
     { "williamboman/mason.nvim", enabled = false },
     { "williamboman/mason-lspconfig.nvim", enabled = false },
+    { "jay-babu/mason-nvim-dap.nvim", enabled = false },
+    { "jay-babu/mason-null-ls.nvim", enabled = false },
     -- ...
   },
   -- ...
@@ -123,14 +206,14 @@ require("lazy").setup({
 
 #### 5. Set Up Home Manager Activation Scripts (Optional)
 
-To make sure all your plugins are installed and ready to go when you start Neovim, use activation scripts -- a mechanism used to set up the system during `home-manager switch`.
-Consider it a "build" step for your configuration and a way make your setup idempotent.
-In the example below, Lazy.nvim clones git repositories and builds telescope-fzf-native using make during activation phase.
+To make sure all your plugins are ready to go when you start Neovim, use activation scripts — a mechanism used to set up the environment during `home-manager switch`.
+Consider it a "build" step for your Neovim configuration and a way to make it idempotent.
+In the example below, `Lazy.nvim` clones git repositories and builds `telescope-fzf-native` using `make` during activation phase.
 
 First, ensure that the necessary tools are available during the activation phase.
-Note: the packages listed here are available only during activation phase, except if you make them available in other ways.
-For example, if you disable Neovim by `programs.neovim.enable = false`, it would still be available during activation phase
-to install packages just like `make` or `gcc`, however you won't be able to use it after.
+> [!NOTE]
+> The packages listed here are available only during activation phase, except if you make them available in other ways.
+> For example, if you disable Neovim by `programs.neovim.enable = false`, it would still be available during activation phase (to install packages) just like `make` or `gcc`, however you won't be able to use it afterward.
 
 ```nix
 home.extraActivationPath = with pkgs; [
@@ -138,6 +221,8 @@ home.extraActivationPath = with pkgs; [
   gnumake   # For building plugins like telescope-fzf-native
   gcc       # For compiling native extensions
   neovim    # To run Lazy-related Neovim commands during activation
+  # If possible, please use this instead of just `neovim`:
+  # config.programs.neovim.finalPackage
 ];
 ```
 
@@ -160,7 +245,7 @@ and any necessary build steps will be executed. So when you start Neovim, everyt
 
 #### Full Example to Copy and Paste
 
-Here's how it all comes together in your `home.nix` file, assuming you're using `home-manager` and `EdenVim`:
+Here's how it all comes together in your `home.nix` file, assuming you're using `home-manager`:
 
 ```nix
 { pkgs, config, lib, ... }:
@@ -169,14 +254,15 @@ Here's how it all comes together in your `home.nix` file, assuming you're using 
   programs.neovim = {
     enable = true;
 
-    # Often required, don't worry as it's isolated in Neovim environment
+    # Often required; don't worry as they are isolated in Neovim environment
     withPython3 = true;
     withNodeJs = true;
 
-    # Packes available within Neovim during runtime. Put your LSP Servers, formatters, linters, etc.
+    # Packages available within Neovim during runtime. Put your LSP Servers, formatters, linters, etc.
     extraPackages = with pkgs; [
       bash-language-server
       buf-language-server
+      # clang provides both LSP Server for C/C++ and a C compiler for treesitter parsers 
       clang
       lldb
       lua-language-server
@@ -218,7 +304,9 @@ Here's how it all comes together in your `home.nix` file, assuming you're using 
     git
     gnumake
     gcc
-    neovim
+    config.programs.neovim.finalPackage
+    # The package above is preferred, but if you can't make it work, use this instead:
+    # neovim
   ];
 
   # Activation script to set up Neovim plugins
@@ -234,7 +322,7 @@ Here's how it all comes together in your `home.nix` file, assuming you're using 
 }
 ```
 
-### Future Plans: Flake-based solution for any Lua-based configurations (WIP)
+### Future Plans: Flake-based solution for any Lua Neovim configurations (WIP)
 
 I'm working on a way to make integrating arbitrary Neovim configurations with Nix smoother. This will allow you to wrap your Lua-based Neovim configuration in a Nix-friendly way without changing your code at all, and still keep all your configuration files in `~/.config/nvim`. Stay tuned for updates!
 
