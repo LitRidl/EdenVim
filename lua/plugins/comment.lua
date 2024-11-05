@@ -41,6 +41,14 @@ local M = {
       pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
     }
   end,
+
+  -- Fixing https://github.com/numToStr/Comment.nvim/issues/483
+  -- Works in conjunction with adding `gc` and `gb` groups in which-key
+  config = function(_, opts)
+    require("Comment").setup(opts)
+    vim.keymap.del("n", "gc")
+    vim.keymap.del("n", "gb")
+  end,
 }
 
 return M
