@@ -57,8 +57,8 @@ M.ts_languages = {
 -- NOTE: following tools rely on Mason installation (except for lsp_with_no_mason)
 -- If you manage LSP, linters, and other tools yourself, set g.mason_enabled = false in options.lua
 
--- LSP Servers according to mason-lspconfig, used in lua/plugins/lspconfig.lua and lua/plugins/mason.lua
--- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/README.md#available-lsp-servers
+-- LSP Servers according to nvim-lspconfig, used in lua/plugins/lspconfig.lua and lua/plugins/mason.lua
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
 -- Each LSP server specified here may have a custom configuration file in lua/settings/{lsp_server}.lua
 -- which is loaded by lspconfig automatically. For example, if nixd.lua exists, it will be used to configure nixd
 M.lsp_servers = {

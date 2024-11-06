@@ -2,22 +2,41 @@
 
 A perfect starting point for your personal, full-featured Neovim configuration. No convoluted layers, just a clean setup to kickstart your PDE (Personalized Development Environment) journey.
 
-As a bonus, your Neovim configuration will [work the same way on Nix-based systems like NixOS](#installation-with-nix-including-nixos), too!
+Your configuration will [work seamlessly on Nix-based systems](#installation-with-nix-including-nixos) and traditional Linux/MacOS setups alike.
 
-If you came here looking for a pre-made, full-blown Neovim IDE, you may actually be in the right place. Chances are you're on the same path I was — [my Neovim journey](#why-edenvim-my-neovim-journey).
+If you're looking for a pre-made, full-blown Neovim IDE, you're probably on [the same path I was](#why-edenvim-my-neovim-journey).
 
 ## Features
 
 - 🍴**Fork & Craft** This is _your_ configuration, the starting point. Nothing like _"don't touch **our** base config, clone a starter repository and go with it_".
-- 🏰**But enjoy stability** Protected from breaking changes via Lazy.nvim lockfile. If you forked, just pull our changes to your configuration, no need to maintain plugin versions.
-- 🪶**Small** ~2500 lines of code, mostly plugin settings for `Lazy.nvim` and explicitly defined defaults.
+- 🏰**But enjoy stability** Protected from breaking changes via lazy.nvim lockfile. If you forked, just pull our changes to your configuration, no need to maintain plugin versions.
+- 🪶**Small** ~2500 lines of code, mostly plugin settings for `lazy.nvim` and explicitly defined defaults.
 - 🎮**Tools that work immediately** Pre-configured LSP, debug adapters, and other tools installed automatically using `mason.nvim` or externally with tools like Nix.
 - 🪟**Out-of-the-box transparency** Works seamlessly with popular color schemes.
-- 🌀**No wrapping** Direct plugin usage — use everything explicitly, no _"lang packs"_ or _"theme loaders".
+- 🌀**No wrapping** Direct plugin usage — use everything explicitly, no _"lang packs"_ or _"theme loaders"_.
 - 🧶**Minimal interdependencies** Related things are placed together, no _"taking icons from here, fetching settings from there, extending default options"_. The exception is key mappings — we keep them in one place.
-- 🌱**Extend Neovim, not replace it** We want you to learn Neovim, not another IDE. No `<leader>lm` instead of `:Mason` or `<leader><tab>n` instead of builtin `gt`, and so on.
+- 🌱**Extend Neovim, not replace** We want you to learn Neovim, not another IDE. No `<leader>lm` instead of `:Mason` or `<leader><tab>n` instead of builtin `gt`, and so on.
 - 🦉**Simplicity over hiding** Should we write code to hide a `Switch C/C++ header/source file` keybinding when you're in a Python file? For us, the answer is no — we trust you, and your journey is simpler without extensive checks and autocommand chains.
-- 🏆**Great support of C/C++ and Rust** Correct configuration of `clangd_extensions.nvim` with include-based autocompletion. I used it to navigate complex Rust projects and Linux kernel (just [generate compile_commands.json for kernel](https://github.com/torvalds/linux/blob/master/scripts/clang-tools/gen_compile_commands.py)).
+- 🏆**Great support of C/C++ and Rust** I used it to navigate complex Rust projects and Linux kernel (just [generate compile_commands.json for kernel](https://github.com/torvalds/linux/blob/master/scripts/clang-tools/gen_compile_commands.py)).
+
+## Table of Contents
+
+- [Why EdenVim? My Neovim Journey](#why-edenvim-my-neovim-journey)
+- [Requirements](#requirements)
+- [Try EdenVim in Docker](#try-edenvim-in-docker)
+- [Installation on Linux and MacOS](#installation-on-linux-and-macos)
+  - [Steps to Install](#steps-to-install)
+  - [First Launch](#first-launch)
+- [Installation with Nix, including NixOS](#installation-with-nix-including-nixos)
+  - [How to Set Up EdenVim with Home Manager](#how-to-set-up-edenvim-with-home-manager)
+  - [Home-Manager Example to Copy and Paste](#full-home-manager-example-to-copy-and-paste)
+- [Customization and Structure](#customization-and-structure)
+  - [Neovim Basics](#neovim-basics)
+  - [EdenVim Structure](#edenvim-structure)
+  - [Plugin System](#plugin-system)
+  - [Core Tools and Language Support](#core-tools-and-language-support)
+  - [LSP Server Configuration](#lsp-server-configuration)
+- [Credits](#credits)
 
 ## Why EdenVim? My Neovim Journey
 
@@ -29,11 +48,11 @@ It went well until I decided to remove UI elements that I'd never use. What seem
 
 The consensus on the Neovim subreddit was clear: eventually, people often craft their own configurations. The advice was to start with templates like `Neovim-from-scratch` or `kickstart.nvim`. This time, I knew: they're not being elitist, it is genuine advice.
 
-Some templates were outdated, while others hadn't incorporated basic tools like `Lazy.nvim`. I found `nvim-basic-ide` refreshingly straightforward — doing everything myself led to better understanding and personally intuitive keymaps.
+Some templates were outdated, while others hadn't incorporated basic tools like `lazy.nvim`. I found `nvim-basic-ide` refreshingly straightforward — doing everything myself led to better understanding and personally intuitive keymaps.
 
 However, a new challenge emerged: plugin authors occasionally introduce breaking changes that can disrupt your workflow. And this is where pre-built configurations shine, as maintaining a personal configuration requires significant time investment.
 
-For me, EdenVim fits this gap — you follow the _"do it yourself"_ approach, but with more speed and less frustration. I want to minimize the distance between _"I've installed it"_, _"It works for my projects"_, and _"I can customize my PDE"_. If you're familiar with Vim, you can be productive in a few days, as tested with my friends.
+I want to minimize the distance between _"I've installed it"_, _"It works for my projects"_, and _"I can customize my PDE"_. For me, EdenVim fits this gap — you follow the _"do it yourself"_ approach, but with more speed and less frustration.
 
 ## Requirements
 
@@ -43,6 +62,7 @@ EdenVim is pre-configured to support TypeScript, Rust, Go, Lua, C/C++, Python, a
 - A terminal emulator with true color and UTF-8 support (Kitty, alacritty, WezTerm, foot, Ghostty, etc.)
 - Clipboard tool (xclip, wl-clipboard, pbcopy, etc. `:help clipboard-tool` in Neovim for more details)
 - [Git](https://git-scm.com/) for plugin management
+- [Lazygit](https://github.com/jesseduffield/lazygit) for TUI-based git interface
 - [Ripgrep](https://github.com/BurntSushi/ripgrep) for faster file search
 - [C compiler](https://gcc.gnu.org/) for treesitter compilation (cc, gcc, clang, zig, etc.)
 - [GNU Make](https://www.gnu.org/software/make/) for building plugins like telescope-fzf-native
@@ -53,7 +73,7 @@ EdenVim is pre-configured to support TypeScript, Rust, Go, Lua, C/C++, Python, a
 - [Go](https://go.dev/doc/install) for some LSP servers
 - [A Nerd Font](https://www.nerdfonts.com/) like `JetBrains Mono Nerd Font` for icons
 
-For example, on Ubuntu 22.10, you can install dependencies globally with:
+For example, on Ubuntu 22.10, you can install dependencies (except for `lazygit`, it's very optional) globally with:
 ```bash
 sudo apt install git curl neovim python3-full python3-pip golang ripgrep luarocks npm nodejs rustc cargo make gcc
 ```
@@ -63,11 +83,11 @@ While it's valuable to show how to work with popular tools and languages, you ca
 > [!TIP]
 > Modern terminal emulators like Kitty and WezTerm allow you to avoid using patched fonts. By installing the `Symbols Nerd Font` as a fallback, you can render missing glyphs without limiting yourself to pre-patched fonts. It allows you to use any ordinary font you like.
 
-## Try in Docker
+## Try EdenVim in Docker
 You can try EdenVim in a container if your terminal emulator supports true color and Nerd Font symbols:
 ```bash
 docker run --rm -it -w /root alpine:edge sh -li -c '
-  apk add --no-cache git make neovim py3-pip npm ripgrep go rust-lldb cargo clang19-extra-tools lua-language-server
+  apk add --no-cache git make neovim py3-pip npm ripgrep go rust-lldb cargo clang19-extra-tools lua-language-server btop lazygit
   git clone https://github.com/LitRidl/EdenVim.git ~/.config/nvim
   cd ~/.config/nvim
   nvim --headless "+Lazy! restore" "+TSUpdate" "+sleep 15" "+qa"
@@ -75,11 +95,12 @@ docker run --rm -it -w /root alpine:edge sh -li -c '
 '
 ```
 The command above runs EdenVim in an isolated environment. To work with real files, use Docker's volume mounting: `-v ../projects/linux:/root/work` mounts `../projects/linux` directory on your host to `/root/work` inside the container. 
+To mount your project directory, replace `../projects/linux` with the path of the folder you want to access inside the container.
 
 **Example**: mount the current directory `.` to `/root/work` inside the container:
 ```bash
 docker run -it --rm -w /root -v .:/root/work alpine:edge sh -li -c '
-  apk add --no-cache git make neovim py3-pip npm ripgrep go rust-lldb cargo clang19-extra-tools lua-language-server
+  apk add --no-cache git make neovim py3-pip npm ripgrep go rust-lldb cargo clang19-extra-tools lua-language-server btop lazygit
   git clone https://github.com/LitRidl/EdenVim.git ~/.config/nvim
   cd ~/.config/nvim
   nvim --headless "+Lazy! restore" "+TSUpdate" "+sleep 15" "+qa"
@@ -99,7 +120,7 @@ The idea of EdenVim is to provide a working "clean slate" for your Neovim config
 3. Use it as a starting point for your configuration.
 4. Optionally, pull updates and improvements from EdenVim to offload version management and plugin maintenance.
 
-### Step-by-Step Installation
+### Steps to Install
 
 1. Back up your existing Neovim configuration (if you have one):
 ```bash
@@ -130,15 +151,15 @@ nvim
 ### First Launch
 
 On first launch, EdenVim automatically:
-- Installs the plugin manager (Lazy.nvim).
+- Installs the plugin manager (lazy.nvim).
 - Downloads and installs Neovim plugins (versions pinned in lazy-lock.json).
-- Downloads and compiles Treesitter parsers.
+- Downloads and compiles Treesitter parsers.  
 - Sets up Mason package manager for LSP servers, linters, and formatters.
 - Installs binary dependencies requested by mason-lspconfig, mason-dap, and mason-null-ls.
 
 Please be patient; this process may take several minutes depending on your connection, GitHub rate limiting, and system performance. You may see multiple notifications during the process.
 
-## Installation with Nix (including NixOS)
+## Installation with Nix, including NixOS
 
 Setting up Neovim on Nix-driven systems is often tricky when it comes to managing external binary dependencies like LSP servers.
 Neovim users frequently modify files in `~/.config/nvim`, and tools like `mason.nvim` dynamically install formatters, LSP servers, and other binaries at runtime.
@@ -147,7 +168,7 @@ This conflicts with Nix's philosophy of reproducible builds and immutability. Th
 While excellent projects like [nixvim](https://github.com/nix-community/nixvim) offer Nix-first Neovim installations, in practice many users prefer their Neovim configuration
 to remain Nix-agnostic for portability.
 
-### Solution: Nix for binary dependencies, Lazy.nvim for plugin management, `.config/nvim` for configuration
+### Solution: Nix for binary dependencies, lazy.nvim for plugin management, `.config/nvim` for configuration
 
 With EdenVim, you can disable Mason-based plugins on Nix systems and manage external tools like LSP servers and null-ls/none-ls tools via Nix. This means:
 
@@ -155,7 +176,7 @@ With EdenVim, you can disable Mason-based plugins on Nix systems and manage exte
 - External dependencies are managed by Nix, ensuring that setup is reproducible in term of binary dependencies.
 - It works on non-Nix systems just as usual, and no parts of Nix "leak" into your Lua files.
 
-### Setting Up EdenVim with Home Manager
+### How to Set Up EdenVim with Home Manager
 
 You don't have to use [Home Manager](https://nix-community.github.io/home-manager/), but it simplifies the process. Here's how you can set up EdenVim with Home Manager:
 
@@ -234,7 +255,7 @@ require("lazy").setup({
 
 To make sure all your plugins are ready to go when you start Neovim, use activation scripts — a mechanism used to set up the environment during `home-manager switch`.
 Consider it a "build" step for your Neovim configuration and a way to make it idempotent.
-In the example below, `Lazy.nvim` clones git repositories and builds `telescope-fzf-native` using `make` during activation phase.
+In the example below, `lazy.nvim` clones git repositories and builds `telescope-fzf-native` using `make` during activation phase.
 
 First, ensure that the necessary tools are available during the activation phase.
 > [!NOTE]
@@ -269,7 +290,7 @@ home.activation.updateNeovimState = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
 This script ensures that when you run `home-manager switch`, Neovim will install all plugins pinned to the versions specified in your `lazy-lock.json`,
 and any necessary build steps will be executed. So when you start Neovim, everything is ready to go.
 
-#### Full Example to Copy and Paste
+### Full Home-Manager Example to Copy and Paste
 
 Here's how it all comes together in your `home.nix` file, assuming you're using `home-manager`:
 
@@ -351,6 +372,82 @@ Here's how it all comes together in your `home.nix` file, assuming you're using 
 ### Future Plans: Flake-based solution for any Lua Neovim configurations (WIP)
 
 I'm working on a way to make integrating arbitrary Neovim configurations with Nix smoother. This will allow you to wrap your Lua-based Neovim configuration in a Nix-friendly way without changing your code at all, and still keep all your configuration files in `~/.config/nvim`. Stay tuned for updates!
+
+## Customization and Structure
+
+### Neovim Basics
+
+If you're new to Neovim, start by entering `:Tutor` in Normal mode to open a tutorial on Vim basics.
+Once you're comfortable, it’s helpful to start reading the [Neovim documentation](https://neovim.io/doc/user/index.html). The best approach is to read it regularly in small parts, ideally practicing as you go. This will help you gradually evolve your skill set and simplify your configuration. Many Neovim plugins and custom key mappings wouldn’t exist if more users read the full documentation!
+
+We also recommend to [learn Lua](https://learnxinyminutes.com/docs/lua/) early in your Neovim journey. Many obstacles you may encounter are Lua-related, and knowing the language will enable you to treat and debug your configuration as a regular Lua program.
+
+### EdenVim Structure
+
+**The entry point** for the EdenVim-based configurations is `init.lua`. This is one of several predefined filenames Neovim looks for in configuration directories, including `~/.config/nvim`, `XDG_CONFIG_HOME/nvim`, and the `nvim` subdirectory within each `XDG_CONFIG_DIRS`. Our `init.lua` sequentially loads:
+
+- `lua/options.lua`: sets `vim.*` options and EdenVim-specific options like `vim.g.eden_theme`. These are globally available; try `:lua print(vim.g.eden_theme)`.
+- `lua/keymaps.lua`: defines most of the key mappings, though some keymaps are defined within plugins. In `keymaps.lua`, you can see both VimScript and Lua syntax.
+- `lua/plugin-loader.lua`: the plugin loader, lazy.nvim. It installs plugins (typically to `~/.local/share/nvim/lazy`), manages their loading order, and loads them on demand.
+- `lua/autocommands.lua`: "trigger-like" commands that are automatically executed on certain events like opening a buffer.
+
+The **best place to start customization** is in `lua/options.lua`, then move on to `lua/keymaps.lua`. Comments are included throughout to guide you.
+
+### Plugin System
+Lua files in `lua/plugins/` and `lua/colorschemes/` are automatically loaded by lazy.nvim, as specified in the `import_dirs` attribute in `lua/plugin-loader.lua`. These can be any directories. Each Lua file in these directories can return a list of plugins (or a single plugin) in lazy.nvim format. For example, if you create a file `lua/plugins/name_doesnt_matter.lua` with the following code, the plugin `lambdalisue/suda.vim` will be installed and lazily loaded on the next startup:
+```lua
+return {
+  "lambdalisue/suda.vim",
+  cmd = { "SudaRead", "SudaWrite" },
+}
+```
+
+Lazy loading is a great optimization strategy, but it can be tricky to debug. If you add a plugin and something goes wrong, consult the [lazy.nvim documentation](https://lazy.folke.io/) as it's pretty compact and may save you some time.
+
+### Core Tools and Language Support
+Next is `lua/settings/toolset.lua`, which specifies the tools that should be available, covering:
+- **Treesitter language parsers (`lua/plugins/treesitter.lua`)**: provide syntactic support for code highlighting, context-aware comments, and text objects (e.g., functions, statement bodies). To do so, it builds a syntax tree for a source file.
+- **LSP servers (`lua/plugins/lspconfig.lua`)**: in ideal world, they provide all language intelligence tools like code actions, refactoring routines, documentation popups, analysis-based code completion, and more. Technically, LSP Servers implement Language Server Protocol, which is based on a JSON-RPC.
+- **DAP Debug Adapters (`lua/plugins/dap.lua`)**: debug adapters used for language-specific debugging with `nvim-dap`.
+- **`null-ls` Sources (`lua/plugins/null-ls.lua`)**: specialized external tools like linters and formatters that are not LSP servers. When we say `null-ls`, we actually refer to its maintained fork `none-ls`.
+
+**`nvim-treesitter`** supports automatic parser installation but requires a C compiler or pre-compiled binaries. Tree-sitter parser generators output C code, and Neovim interacts with these parsers as compiled shared libraries (e.g., `parser/{language}.so` files in Neovim’s `runtimepath`). Parsers for all languages in `toolset.ts_languages` are pre-installed as specified in `lua/plugins/treesitter.lua`.
+
+**Mason (`mason.nvim`)** is a plugin manager for external dependencies, and it is configured as follows:
+- `lua/settings/toolset.lua` specifies tools that may be installed automatically with Mason.
+- `lua/plugins/lspconfig.lua` uses `mason-lspconfig.nvim` to tell Mason to install LSP servers specified in `toolset.lsp_servers` and to automatically set them up.
+- `lua/plugins/null-ls.lua` configures `null-ls` to use `toolset.null_ls_sources` as sources, creating a single point of truth for `null-ls` configuration.
+- `lua/plugins/mason.lua` sets up `mason.nvim` and `mason-lspconfig.nvim`, and it also uses `mason-null-ls.nvim` to request automatic installation of `null-ls` sources.
+- `lua/plugins/dap.lua` employs `mason-nvim-dap.nvim` to request installation of debug adapters from `toolset.dap_servers`.
+
+> [!NOTE]
+> The relationship between `mason-lspconfig.nvim` and `nvim-lspconfig` is nuanced. In EdenVim, all servers listed in `toolset.lsp_servers` are passed to `mason-lspconfig.nvim`, which maps `lspconfig` server names to Mason package names. `mason-lspconfig.nvim` then requests installation of these packages from `mason.nvim`.  
+> Although `mason-lspconfig.nvim` can automatically call `lspconfig.servername.setup {}`, we intentionally avoid this behavior to allow greater customization of LSP servers and configurations. This approach also ensures consistent functionality between NixOS and non-Nix systems. Instead, servers in `toolset.lsp_servers` are iterated over in `lua/plugins/lspconfig.lua`, where `setup { ... }` is explicitly called for each server. 
+
+Mason is unnecessary on Nix systems, see the [Nix instructions](#installation-with-nix-including-nixos) for details.
+
+### LSP Server Configuration
+Most plugin-specific code is intentionally grouped together, but LSP servers are an exception. `lspconfig` can set default configurations for LSP servers, but sometimes further customization is needed. Don’t hesitate to make changes, introduce hard-coded paths, or add commands when necessary to get everything working as desired — sometimes there's no other way.
+
+In `lua/plugins/lspconfig.lua`, a loop iterates over `require("settings.toolset").lsp_servers` and looks for `lua/settings/{server}.lua` for each `server` in the list. If a file is found and returns a table, that table is merged with the default `lspconfig` configuration for the server. For a list of LSP servers and their default configurations, refer to the [nvim-lspconfig documentation](https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md).
+
+To customize an LSP server like `pyright`, create a file `lua/settings/pyright.lua`. The file name must match the [LSP server name](https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md) in `toolset.lsp_servers`:
+```lua
+return {
+  -- Usually, you're only interested in the `settings` table
+  settings = {
+    python = {
+      -- Configuration for Pyright
+      -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#pyright
+    },
+  },
+  -- However, you can customize everything, including the command to launch the server
+  -- cmd = { "pyright-langserver", "--stdio" },
+  -- filetypes = { "python" },
+}
+```
+> [!NOTE]
+> The `python` key in `settings.python` does not refer to the LSP server or filetype; it has no connection to Neovim or plugins. The `settings` table is wrapped in a JSON-RPC message and passed to the LSP server. For Pyright, it just happens that language settings are placed under the `python` key, while tool-specific settings are located under the `pyright` key. See the [Pyright documentation](https://github.com/microsoft/pyright/blob/main/docs/settings.md) for more details.
 
 ## Credits
 

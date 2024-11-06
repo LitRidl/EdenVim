@@ -56,6 +56,11 @@ map("n", "<leader><leader>h", function() require("smart-splits").swap_buf_left()
 map("n", "<leader><leader>j", function() require("smart-splits").swap_buf_down() end, { desc = "Swap with the buffer below" })
 map("n", "<leader><leader>k", function() require("smart-splits").swap_buf_up() end, { desc = "Swap with the buffer above" })
 map("n", "<leader><leader>l", function() require("smart-splits").swap_buf_right() end, { desc = "Swap with the right buffer" })
+-- swapping buffers between adjacent windows
+map("n", "<leader><leader>h", function() require("smart-splits").swap_buf_left() end, { desc = "Swap with the buffer in left window" })
+map("n", "<leader><leader>j", function() require("smart-splits").swap_buf_down() end, { desc = "Swap with the buffer in window below" })
+map("n", "<leader><leader>k", function() require("smart-splits").swap_buf_up() end, { desc = "Swap with the buffer in window above" })
+map("n", "<leader><leader>l", function() require("smart-splits").swap_buf_right() end, { desc = "Swap with the buffer in right window" })
 
 -- Pay attention to the 3rd argument -- that's the default way to do splits, but it requires ctrl key
 map("n", "<leader>-", "<C-W>s", { desc = "Split window below" })
