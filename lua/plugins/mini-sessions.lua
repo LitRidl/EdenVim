@@ -13,7 +13,8 @@ local M = {
     autowrite = true,
 
     -- Directory where global sessions are stored (use `''` to disable)
-    directory = vim.fn.stdpath "data" .. "/sessions/",
+    -- Note: "data" is not just XDG_DATA_HOME, see https://neovim.io/doc/user/starting.html#standard-path
+    directory = vim.fn.stdpath("data") .. "/sessions/",
 
     -- File for local session
     -- Note: I prefer .session.vim, but some plugins (including tmux-resurrect) expect Session.vim

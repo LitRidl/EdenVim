@@ -14,23 +14,29 @@ local M = {
     spec = {
       {
         mode = { "n", "v" },
-        { "<leader><leader>", group = "move buffers" },
+        -- Good choice for your personal set of frequently used keybinds
+        -- It you add keybinds under leader leader in keymaps.lua, they will be automatically grouped here
+        { "<leader><leader>", group = "frequent" },
         { "<leader>d",        group = "debug" },
         { "<leader>f",        group = "find & files" },
+        { "<leader>r",        group = "replace text" },
         { "<leader>g",        group = "git" },
+        { "<leader>h",        group = "help, config info" },
         { "<leader>gh",       group = "git hunks navigation" },
         { "<leader>l",        group = "lsp (code actions)" },
         { "<leader>s",        group = "session" },
+        { "<leader>b",        group = "buffers" },
         { "<leader>t",        group = "terminal" },
+        -- Second terminal is opinionated, if you want it -- uncomment keybinds for it in keymaps.lua
         { "<leader>t2",       group = "second terminal" },
-        { "<leader>u",        group = "ui, toggles (wordwrap, ...)" },
-        { "<leader>x",        group = "diagnostics/quickfix" },
+        { "<leader>o",        group = "options, ui" },
+        { "<leader>x",        group = "diagnostics/trouble" },
         { "<leader><tab>",    group = "tabpages" },
         { "[",                group = "prev" },
         { "]",                group = "next" },
         { "g",                group = "goto, surround, comment" },
-        { "gb",               group = "Comment toggle blockwise" },
-        { "gc",               group = "Comment toggle linewise" },
+        { "gb",               group = "comment toggle blockwise" },
+        { "gc",               group = "comment toggle linewise" },
         { "gz",               group = "surround" },
         { "z",                group = "folds, centering, spelling" },
       },
@@ -39,6 +45,16 @@ local M = {
       -- separator = "󱦰", -- symbol used between a key and it's label
       -- breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
       -- group = "+", -- symbol prepended to a group
+      rules = {
+        { pattern = "lsp", icon = " ", color = "cyan" },
+        { pattern = "save", icon = " ", color = "cyan" },
+        { pattern = "undo", icon = "󰕌 ", color = "cyan" },
+        { pattern = "zen", icon = "󱅻 ", color = "cyan" },
+        { pattern = "close", icon = "󰅘 ", color = "cyan" },
+        { pattern = "help", icon = "󰋗 ", color = "cyan" },
+        { pattern = "replace", icon = "󰛔 ", color = "cyan" },
+        { pattern = "file browser", icon = "󰙅 ", color = "cyan" },
+      },
     },
     win = {
       -- If it's difficult to distinguish which-key popup from the background
