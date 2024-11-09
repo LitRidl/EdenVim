@@ -52,20 +52,48 @@ local button = function(...)
   return b
 end
 
+--- Open session, creating it if it doesn't exist yet
+local function ensure_session(session_name, path)
+  local ms = require('mini.sessions')
+
+  if not ms.detected[session_name] then
+    vim.cmd('cd ' .. path)
+    ms.write(session_name)
+  end
+  ms.read(session_name, { force = true })
+end
+
+-- Assume for an example that dotfiles are directly above nvim config dir that Neovim uses
+local nvim_dir = vim.fn.stdpath('config')
+local dots_dir = nvim_dir:gsub('/nvim$', '')
+
 local buttons = {
   type = "group",
   val = {
-    { type = "text", val = "Quick Actions", opts = { hl = "DashboardShortCut", position = "center" } },
+    { type = "text",    val = "Quick Actions", opts = { hl = "DashboardShortCut", position = "center" } },
     { type = "padding", val = 1 },
-    button("e", "󰝒 " .. " New file", ":ene <BAR> startinsert<cr>"),
-    button("f", "󰱼 " .. " Find file", ":Telescope find_files<cr>"),
-    button("r", "󱋡 " .. " Recent files", ":Telescope oldfiles<cr>"),
-    button("t", "󱎸 " .. " Find text in files", ":Telescope live_grep<cr>"),
-    button("s", "󰀄 " .. " Sessions", ":lua require('mini.sessions').select()<cr>"),
-    button("m", "󰸕 " .. " Bookmarks", "Telescope marks<cr>"),
-    button("c", " " .. " EdenVim config", ":lua require('mini.sessions').read('nvim')<cr>"),
-    button("d", " " .. " Dotfiles", ":lua require('mini.sessions').read('dotfiles')<cr>"),
-    button("q", "󰩈 " .. " Quit", ":qa!<cr>"),
+
+    -- BAR is just '|' used to separate commands in command mode
+    button("e", "󰝒 " .. " New file", "<cmd>enew <BAR> startinsert<cr>"),
+
+    button("f", "󰱼 " .. " Find file", "<cmd>Telescope find_files<cr>"),
+    button("r", "󱋡 " .. " Recent files", "<cmd>Telescope oldfiles<cr>"),
+    button("g", "󱎸 " .. " Grep in files", "<cmd>Telescope live_grep<cr>"),
+    button("m", "󰸕 " .. " Marks", "<cmd>Telescope marks<cr>"),
+    -- You can use 'pass-trough' keybindings for better discoverability
+    -- They match with the actual keymaps you'll use outside the dashboard
+    -- button("SPC f f", "󰱼 " .. " Find file"),
+    -- button("SPC f r", "󱋡 " .. " Recent files"),
+    -- button("SPC f g", "󱎸 " .. " Grep in files"),
+    -- button("SPC f m", "󰸕 " .. " Marks"),
+
+    -- With Lua code, remember to wrap actions in a function to defer execution
+    button("s", "󰀄 " .. " Sessions", function() require('mini.sessions').select("read") end),
+    button("c", " " .. " EdenVim config", function() ensure_session("nvim", nvim_dir) end),
+    button("d", " " .. " Dotfiles", function() ensure_session("dotfiles", dots_dir) end),
+
+    button("l", "󰒲 " .. " Plugins (lazy.nvim)", "<cmd>Lazy<cr>"),
+    button("q", "󰩈 " .. " Quit", "<cmd>qa!<cr>"),
   },
   position = "center",
 }
