@@ -1,6 +1,12 @@
-# EdenVim — Craft your personal IDE experience
+<div align="center">
+  <img
+    src="https://github.com/user-attachments/assets/859b1e5e-15da-4457-9d69-07eb645499bc"
+    width="410"
+  />
+</div>
+<h1 align="center">Craft your personal IDE experience</h1>
 
-A perfect starting point for your personal, full-featured Neovim configuration. No convoluted layers, just a clean setup to kickstart your PDE (Personalized Development Environment) journey.
+EdenVim is a perfect starting point for your personal, full-featured Neovim configuration. No convoluted layers, just a clean setup to kickstart your PDE (Personalized Development Environment) journey.
 
 Your configuration will [work seamlessly on Nix-based systems](#-installation-with-nix-including-nixos) and traditional Linux/MacOS setups alike.
 
