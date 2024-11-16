@@ -13,8 +13,8 @@ g.mason_enabled = true;
 --   gruvbox: hard, soft, "" (empty line for default contrast)
 --   onedark: dark, darker, cool, deep, warm, warmer, light
 g.eden_transparent = true        -- makes the background of g.eden_theme transparent (wrt terminal opacity)
-g.eden_theme = "gruvbox"         -- edenVim-specific theme name (look lua/plugins/colorscheme.lua)
-g.eden_theme_variant = "dark"    -- theme variant for g.eden_theme. Comment to use the default variant for each theme
+g.eden_theme = "gruvbox"         -- edenvim-specific theme name (look lua/plugins/colorscheme.lua)
+g.eden_theme_variant = "hard"    -- theme variant for g.eden_theme. comment to use the default variant for each theme
 
 g.eden_header = "small"          -- "big" or "small" header
 

@@ -14,7 +14,7 @@ local M = {
     transparent_mode = vim.g.eden_transparent or false,
     overrides = {
       TabLine = { fg = neutral_aqua },
-      TabLineSel = { bg = neutral_aqua, fg = neutral_aqua },
+      TabLineSel = { fg = neutral_aqua },
 
       BufferlineBufferSelected = { fg = neutral_aqua, bold = true, italic = true },
       BufferlineSeparator = { fg = neutral_aqua },
@@ -35,7 +35,6 @@ local M = {
       WhichKeyGroup = { fg = bright_orange },
       WhichKeyBorder = { fg = neutral_aqua },
 
-      NvimTreeFolderIcon = { fg = bright_yellow },
       NvimTreeRootFolder = { fg = neutral_aqua },
     },
   },

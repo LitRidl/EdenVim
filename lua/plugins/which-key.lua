@@ -7,7 +7,7 @@ local M = {
   opts = {
     -- which-key popup window style = "classic" | "modern" | "helix"
     -- classic is without borders, modern has them, and helix is aligned to the right
-    preset = "classic",
+    preset = "modern",
     defaults = {},
     -- All keymaps, no matter how defined, are scanned for the following prefixes (groups)
     -- and if they match, they are considered to be a part of a group in the popup
