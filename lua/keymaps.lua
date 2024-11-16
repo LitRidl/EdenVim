@@ -232,17 +232,18 @@ end
 map("n", "K", show_documentation, { desc = "Show man/vim/help/crates docs", silent = true })
 
 -- Trouble.nvim, diagnostics, quickfix/loclist, lsp_references, TODO comments
-map("n", "<leader>xx", function() require("trouble").open() end, { desc = "Toggle Trouble" })
-map("n", "<leader>xw", function() require("trouble").open("workspace_diagnostics") end, { desc = "Workspace diagnostics (Trouble)" })
-map("n", "<leader>xd", function() require("trouble").open("document_diagnostics") end, { desc = "Document diagnostics (Trouble)" })
-map("n", "<leader>xl", function() require("trouble").open("loclist") end, { desc = "Location list (Trouble)" })
-map("n", "<leader>xq", function() require("trouble").open("quickfix") end, { desc = "Quickfix lit (Trouble)" })
-map("n", "gR", function() require("trouble").open("lsp_references") end, { desc = "LSP references (Trouble)" })
+map("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Workspace diagnostics (Trouble)" })
+map("n", "<leader>xb", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Buffer diagnostics (Trouble)" })
+map("n", "<leader>xr", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", { desc = "LSP Definitions / references (Trouble)" })
+map("n", "<leader>xs", "<cmd>Trouble symbols toggle focus=false<cr>", { desc = "Symbols (Trouble)" })
+map("n", "<leader>xl", "<cmd>Trouble loclist toggle<cr>", { desc = "Location list (Trouble)" })
+map("n", "<leader>xq", "<cmd>Trouble qflist toggle<cr>", { desc = "Quickfix list (Trouble)" })
+map("n", "gR", function() require("trouble").toggle("lsp_references") end, { desc = "LSP references (Trouble)" })
 map("n", "]q", function() require("trouble").next({ skip_groups = true, jump = true }) end, { desc = "Next trouble/quickfix item" })
-map("n", "[q", function() require("trouble").previous({ skip_groups = true, jump = true }) end, { desc = "Previous trouble/quickfix item"})
+map("n", "[q", function() require("trouble").prev({ skip_groups = true, jump = true }) end, { desc = "Previous trouble/quickfix item"})
 
 -- todo-comments.nvim (Trouble.nvim integration)
-map("n", "<leader>xt", "<cmd>TodoTrouble<cr>", { desc = "List TODO/FIX/etc (Trouble)" })
+map("n", "<leader>xt", "<cmd>Trouble todo toggle<cr>", { desc = "List TODO/FIX/etc (Trouble)" })
 map("n", "]t", function() require("todo-comments").jump_next() end, { desc = "Next todo comment" })
 map("n", "[t", function() require("todo-comments").jump_prev() end, { desc = "Previous todo comment" })
 
