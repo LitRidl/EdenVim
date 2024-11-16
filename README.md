@@ -6,7 +6,7 @@
 </div>
 <h1 align="center">Craft your personal IDE experience</h1>
 
-EdenVim is a perfect starting point for your personal, full-featured Neovim configuration. No convoluted layers, just a clean setup to kickstart your PDE (Personalized Development Environment) journey.
+EdenVim is a perfect starting point for your personal, full-featured Neovim configuration. No convoluted layers, just a clean setup to kickstart your **PDE (Personalized Development Environment)** journey.
 
 Your configuration will [work seamlessly on Nix-based systems](#-installation-with-nix-including-nixos) and traditional Linux/MacOS setups alike.
 
@@ -24,6 +24,27 @@ If you're looking for a pre-made, full-blown Neovim IDE, you're probably on [the
 - 🌱**Extend Neovim, not replace** We want you to learn Neovim, not another IDE. No `<leader>lm` instead of `:Mason` or `<leader><tab>n` instead of builtin `gt`, and so on.
 - 🦉**Simplicity over hiding** Should we write code to hide a `Switch C/C++ header/source file` keybinding when you're in a Python file? For us, the answer is no — we trust you, and your journey is simpler without extensive checks and autocommand chains.
 - 🏆**Great support of C/C++ and Rust** I used it to navigate complex Rust projects and Linux kernel (just [generate compile_commands.json for kernel](https://github.com/torvalds/linux/blob/master/scripts/clang-tools/gen_compile_commands.py)).
+
+## 🖼️ Showcase
+
+<div align="center">
+
+  ![EdenVim Main Screen](https://github.com/user-attachments/assets/d7412f28-fb7a-447b-99da-245d2c438121)
+  **Main Dashboard** showcasing transparency support and session management
+
+  ![Keybindings helper](https://github.com/user-attachments/assets/ae2ea4c4-b885-4874-8c9a-f78287a0131f)
+  **Development Environment** featuring file explorer, interactive keybindings, and symbols outline
+
+  ![Development Features](https://github.com/user-attachments/assets/535a1f8b-f4d4-4f21-ae9c-43d41d972000)
+  **Smart Completions** with auto-complete, signature help, and GitHub-style definitions & references explorer
+
+  ![LSP Features](https://github.com/user-attachments/assets/dc8723fc-9c0a-4e75-8805-b0fdf8fa6f72)
+  **Language Intelligence** powered by LSP Servers and none-ls, featuring code actions, language tools, and inlay hints
+
+  ![Search Features](https://github.com/user-attachments/assets/9ef909dd-908f-4680-91fa-5f0ec37c32df)
+  **Powerful Search** with Telescope integration and native fzf fuzzy finding
+
+</div>
 
 ## 📑 Table of Contents
 
