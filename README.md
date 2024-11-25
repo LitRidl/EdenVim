@@ -342,7 +342,7 @@ Here's how it all comes together in your `home.nix` file, assuming you're using 
     # Packages available within Neovim during runtime. Put your LSP Servers, formatters, linters, etc.
     extraPackages = with pkgs; [
       bash-language-server
-      buf-language-server
+      buf
       # clang provides both LSP Server for C/C++ and a C compiler for treesitter parsers 
       clang
       lldb

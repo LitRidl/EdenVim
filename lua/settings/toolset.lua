@@ -64,7 +64,7 @@ M.ts_languages = {
 M.lsp_servers = {
   "basedpyright",
   "bashls", -- bash-language-server
-  "buf_ls",  -- buf-language-server
+  "buf_ls",  -- buf
   -- Note for C/C++: for complex projects like Linux kernel, clang relies on "JSON compilation database"
   -- Use https://github.com/rizsotto/Bear to "wrap" build process and autogenerate compile_commands.json
   "clangd",
