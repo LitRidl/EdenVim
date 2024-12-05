@@ -31,7 +31,7 @@ M.opts = {
     prompt_prefix = " ",
     selection_caret = "󰐊 ",
     path_display = { "smart" },
-    file_ignore_patterns = { ".git/", ".direnv/", "node_modules/" },
+    file_ignore_patterns = { ".git/", ".direnv/", "node_modules/", "__pycache__/", ".cache/" },
     color_devicons = true,
     -- A hack sometimes required when telescope uses `bat` for preview
     set_env = { ["COLORTERM"] = "truecolor" },
@@ -59,12 +59,12 @@ M.opts = {
   },
   pickers = {
     find_files = {
-      -- Note: with `hidden = true` you can remove "--hidden" from `find_command` to speed up search
-      find_command = { "rg", "--color=never", "--files", "--hidden", "-g", "!.git/" },
-      -- `hidden = true` makes Telescope filter out hidden files, even if they are present in the search results
+      find_command = { "rg", "--color=never", "--ignore-case", "--files", "-g", "!**/.git/*" },
+      -- `hidden = true` makes Telescope show hidden files, except ignored ones
       hidden = true,
       follow = true,
-      -- no_ignore = true,
+      -- show files ignored by .gitignore, .ignore, etc.
+      no_ignore = false,
     },
   },
   extensions = {
@@ -85,7 +85,7 @@ M.opts = {
 
 function M.config(_, opts)
   -- if ripgrep is not available, fall back to find
-  if vim.fn.executable ~= "rg" then
+  if vim.fn.executable("rg") ~= 1 then
     opts.pickers.find_files.find_command = { "find", ".", "-type", "f" }
   end
   require("telescope").setup(opts)
