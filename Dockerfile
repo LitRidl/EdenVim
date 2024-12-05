@@ -69,5 +69,6 @@ COPY <<EOF /tmp/edenvim-bootstrap.lua
     vim.cmd("LspInstall " .. table.concat(require("settings.toolset").lsp_mason_install, " "))
 EOF
 
-RUN nvim --headless "+luafile /tmp/edenvim-bootstrap.lua" "+qall" \
-    rm -f /tmp/edenvim-bootstrap.lua
+RUN nvim --headless "+luafile /tmp/edenvim-bootstrap.lua" "+qall" && \
+    rm -f /tmp/edenvim-bootstrap.lua && \
+    rm -rf /root/.cache/pip /root/.cache/go-build /root/.npm/_cacache
