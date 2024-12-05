@@ -4,23 +4,14 @@ if not vim.loop.fs_stat(lazypath) then
   vim.fn.system {
     "git",
     "clone",
+    "--depth=1",
     "--filter=blob:none",
     "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
+    "--branch=stable",
     lazypath,
   }
 end
 vim.opt.rtp:prepend(lazypath)
-
--- make sure to set `mapleader` before lazy so your mappings are correct
-vim.g.mapleader = " "
-
--- all *.lua files within each directory specified here are considered plugin files
--- Note: if you want to include plugins/subfolder/*.lua files, add { import = "plugins/subfolder" }
-local import_dirs = {
-  { import = "colorschemes" },
-  { import = "plugins" },
-}
 
 local opts = {
   install = {
@@ -34,6 +25,8 @@ local opts = {
   },
   ui = { wrap = "true" },
   change_detection = { enabled = true },
+   -- automatically check for plugin updates
+  checker = { enabled = false },
   debug = false,
   performance = {
     cache = {
@@ -53,6 +46,13 @@ local opts = {
       },
     },
   },
+}
+
+-- all *.lua files within each directory specified here are considered plugin files
+-- Note: if you want to include plugins/subfolder/*.lua files, add { import = "plugins/subfolder" }
+local import_dirs = {
+  { import = "colorschemes" },
+  { import = "plugins" },
 }
 
 require("lazy").setup(import_dirs, opts)

@@ -18,6 +18,8 @@ g.eden_theme_variant = "hard"    -- theme variant for g.eden_theme. comment to u
 
 g.eden_header = "small"          -- "big" or "small" header
 
+g.mapleader = " "                -- leader key for keymaps
+
 opt.guifont = "monospace:h12"    -- font used in Neovim GUI apps like Neovide
 
 -- vim.o.background = "dark"
