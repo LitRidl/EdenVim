@@ -1,9 +1,10 @@
 -- The file to define your languages, linters, debuggers, etc for automatic installation
+-- To understand internals, please read "Core Tools and Language Support" under "Customization" in README.md
 
 local M = {}
 
 -- Treesitter languages for automatic installation
--- NOTE: if `auto_install = true` in ../plugins/treesitter.lua, grammars are installed
+-- NOTE: if `auto_install = true` in `lua/plugins/treesitter.lua`, grammars are installed
 -- automatically on demand if `tree-sitter` CLI tool is available. Otherwise, you can manually
 -- specify grammars in the list below -- they will be pre-installed even if you never use them.
 M.ts_languages = {
@@ -54,13 +55,11 @@ M.ts_languages = {
   "yaml",
 }
 
--- NOTE: following tools rely on Mason installation (except for lsp_with_no_mason)
--- If you manage LSP, linters, and other tools yourself, set g.mason_enabled = false in options.lua
-
--- LSP Servers according to nvim-lspconfig, used in lua/plugins/lspconfig.lua and lua/plugins/mason.lua
+-- LSP Servers according to nvim-lspconfig. `lua/plugins/lspconfig.lua` configures LSP servers with defaults which you can extend:
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
--- Each LSP server specified here may have a custom configuration file in lua/settings/{lsp_server}.lua
--- which is loaded by lspconfig automatically. For example, if nixd.lua exists, it will be used to configure nixd
+-- Each LSP server specified here may have a custom configuration in `lua/settings/{server}.lua` which will automatically loaded.
+-- For example, if `lua/settings/nixd.lua` exists, options in it will be merged with nvim-lspconfig defaults and used to configure nixd.
+-- It's NOT Mason installation list: only a list of LSP servers to be configured and set up with nvim-lspconfig.
 M.lsp_servers = {
   "basedpyright",
   "bashls", -- bash-language-server
@@ -85,8 +84,12 @@ M.lsp_servers = {
   "ts_ls",
   "yamlls",
 }
--- LSP servers that need external installation (not available via Mason)
--- If you add an entry to lsp_servers and see an error about ensure_installed,
+
+-- Following sections describe tools that should be installed with Mason
+-- If you manage LSP, linters, and other tools yourself, set `g.mason_enabled = false` in `lua/options.lua`
+
+-- LSP servers marked for external installation (not available via Mason or you want to use your own installation):
+-- If you add an entry to `lsp_servers` and see an error about `ensure_installed`,
 -- you can add it to this list to exclude it from mason auto-installation
 -- To look up servers in mason registry, see https://mason-registry.dev/registry/list
 M.lsp_with_no_mason = {
@@ -94,7 +97,23 @@ M.lsp_with_no_mason = {
   "nil_ls",
 }
 
--- Debuggers for mason-nvim-dap.nvim
+-- You can conditionally exclude a server from auto-installation
+-- Example: exclude clangd if `clangd` executable is already available in your environment
+if vim.fn.executable("clangd") == 1 then
+    table.insert(M.lsp_with_no_mason, "clangd")
+end
+
+-- List of LSP servers to be installed with Mason
+-- This table is used by `lua/plugins/mason.lua` and during Docker build (to bootstrap dependencies)
+-- It takes `lsp_servers` from above and exclude `lsp_with_no_mason` from it
+M.lsp_mason_install = vim.tbl_filter(
+  function(server)
+    return not vim.tbl_contains(M.lsp_with_no_mason, server)
+  end,
+  M.lsp_servers
+)
+
+-- Debug adapters for mason-nvim-dap.nvim (see `lua/plugins/dap.lua` for explanation)
 -- Available adapters: https://github.com/jay-babu/mason-nvim-dap.nvim/blob/main/lua/mason-nvim-dap/mappings/source.lua
 M.debug_tools = {
   "codelldb", -- c, c++, rust
@@ -108,8 +127,8 @@ M.debug_tools = {
 
 -- null-ls/none-ls is a bridge between non-LSP language tools and the LSP ecosystem.
 -- In ideal world, when each LSP server is perfect, there is no need for it.
--- This sources list is used in plugins/null_ls.lua and plugins/mason.lua
--- NOTE: Some built-in sources (like gitsigns) cause harmless Mason installation errors. You can exclude them in plugins/mason.lua
+-- This sources list is used in `lua/plugins/null_ls.lua` and `lua/plugins/mason.lua`
+-- NOTE: Some built-in sources (like gitsigns) cause harmless Mason installation errors. You can exclude them in `lua/plugins/mason.lua`
 M.null_ls_sources = function(null_ls)
   return {
     null_ls.builtins.code_actions.gitsigns,

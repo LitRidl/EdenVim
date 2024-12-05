@@ -1,4 +1,7 @@
 -- "Easy configuration" wrapper around builtin LSP (LspInfo, LspStop, multi-root support useful for memory-hungry LSP servers, etc)
+-- Sets up each of `lsp_servers` from `lua/settings/toolset.lua`. Does NOT install any LSP servers, only configures them.
+-- If you want to install LSP servers with Mason, check `lsp_mason_install` in `lua/settings/toolset.lua` and
+-- `lua/plugins/mason.lua` instead.
 -- https://github.com/neovim/nvim-lspconfig
 
 local M = {
@@ -33,27 +36,30 @@ local M = {
 function M.config(_, opts)
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
-  capabilities = require("cmp_nvim_lsp").default_capabilities(M.capabilities)
+  capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
   local lspconfig = require "lspconfig"
   local on_attach = function(client, bufnr)
     require("illuminate").on_attach(client)
   end
 
+  -- Try to configure each LSP server from `lua/settings/toolset.lua` with options in `settings/{server}.lua`, if present
   for _, server in pairs(require("settings.toolset").lsp_servers) do
-    Opts = {
+    server_opts = {
       on_attach = on_attach,
       capabilities = capabilities,
     }
 
     server = vim.split(server, "@")[1]
 
+    -- Load custom LSP server configuration from `settings/{server}.lua` file
     local require_ok, conf_opts = pcall(require, "settings." .. server)
     if require_ok then
-      Opts = vim.tbl_deep_extend("force", conf_opts, Opts)
+      server_opts = vim.tbl_deep_extend("force", conf_opts, server_opts)
     end
 
-    lspconfig[server].setup(Opts)
+    -- You can manually add extra LSP server configurations here, if you don't want to use `settings/{server}.lua`
+    lspconfig[server].setup(server_opts)
   end
 
   local signs = {
