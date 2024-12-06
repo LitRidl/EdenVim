@@ -138,7 +138,7 @@ When you first open EdenVim, you'll see a dashboard with one-key shortcuts. For 
 - `SPC` to open which-key popup (interactive cheatsheet):
   - navigate through groups with their prefix letters;
   - use backspace to go back;
-  - backspace over `SPC` to see global bindings;
+  - backspace over `SPC` to see global bindings (like `gcc` to comment a line);
 - `SPC h k` to search all custom and plugin keybindings.
 
 - **Buffers**
@@ -146,6 +146,12 @@ When you first open EdenVim, you'll see a dashboard with one-key shortcuts. For 
 - `SPC b` to see buffer-related commands.
 - `SPC .` for a quick buffer picker (single letter is assigned to each buffer and you can jump to it by typing the letter).
 - `SPC ,` to browse all buffers in a Telescope popup.
+
+- **Terminal**
+- `Ctrl + z` to suspend Neovim, work in the original terminal, and then `fg` to resume.
+- `SPC tt` or `Ctrl + \` to open a floating terminal.
+- `SPC th` to open a terminal window in a horizontal split.
+- `SPC gg` to open Lazygit.
 
 To open **Mason** and **Lazy** popups, use `:Mason` and `:Lazy`. If you encounter issues with LSP or code actions, type `:LspInfo` or `SPC l i` to check their status. For general setup checks, use `:checkhealth` or review `:messages` for error messages.
 
@@ -169,7 +175,7 @@ We also recommend to [learn Lua](https://learnxinyminutes.com/docs/lua/) early. 
 - `lua/plugin-loader.lua`: the plugin loader, lazy.nvim. It installs plugins (typically to `~/.local/share/nvim/lazy`), manages their loading order, and loads them on demand.
 - `lua/autocommands.lua`: "trigger-like" commands that are automatically executed on certain events like opening a buffer.
 
-The **best place to start customization** is in `lua/options.lua`, then move on to `lua/keymaps.lua` and `lua/settings/toolset.lua`. Of course, don't forget to create your own dashboard header on `lua/settings/alpha-dashboard.lua`. Refer to the comments in the files on how to customize them — they are also available for most plugins in `lua/plugins/`.
+The **best place to start customization** is in `lua/options.lua`, then move on to `lua/keymaps.lua` and `lua/settings/toolset.lua`. Of course, don't forget to create your own dashboard header on `lua/settings/alpha-dashboard.lua`. Refer to the comments in the files on how to customize them — they are also available for most plugins in `lua/plugins/`. To define custom floating terminals with commands like `btop` or `iPython` in them, see `lua/plugins/toggleterm.lua` and `lua/keymaps.lua`.
 
 ### Plugin System
 Lua files in `lua/plugins/` and `lua/colorschemes/` are automatically loaded by lazy.nvim, as specified in the `import_dirs` attribute in `lua/plugin-loader.lua`. These can be any directories. Each Lua file in these directories can return a list of plugins (or a single plugin) in lazy.nvim format. For example, if you create a file `lua/plugins/name_doesnt_matter.lua` with the following code, the plugin `lambdalisue/suda.vim` will be installed and lazily loaded on the next startup:
