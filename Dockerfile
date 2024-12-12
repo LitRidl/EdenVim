@@ -1,3 +1,11 @@
+# To build full-featured image locally, run:
+#   docker build --target edenvim-full -t edenvim .
+# To build each image separately, run:
+#   docker build --target edenvim-base -t edenvim-base .
+#   docker build --target edenvim-plugins -t edenvim-plugins .
+#   docker build --target edenvim-langtools -t edenvim-langtools .
+#   docker build --target edenvim-full -t edenvim-full .
+
 # Base image. When launched, starts to install everthing. Installed:
 # - Minimal system dependencies (+ git, gcc, make) — yes
 # - Lazy plugins + Treesitter grammars — no
