@@ -54,23 +54,25 @@ docker run -it --rm  -v .:/root/work edenvim/edenvim:full
 
 ## 📑 Table of Contents
 
-- [📖 Why EdenVim? My Neovim Journey](#-why-edenvim-my-neovim-journey)
-- [🐳 Quick Start with Docker](#-quick-start-with-docker)
+- [📖 Why EdenVim? My Neovim journey](#-why-edenvim-my-neovim-journey)
+- [🐳 Quick start with Docker](#-quick-start-with-docker)
   - [Available Images](#available-images)
-- [🛫 Start Working in EdenVim](#-start-working-in-edenvim)
+  - [Version tags and mutability](#version-tags-and-mutability)
+  - [Customization and advanced usage](#customization-and-advanced-usage)
+- [🛫 Start working in EdenVim](#-start-working-in-edenvim)
 - [🔧 Customization](#-customization)
-  - [EdenVim Structure](#edenvim-structure)
-  - [Plugin System](#plugin-system)
-  - [Core Tools and Language Support](#core-tools-and-language-support)
-  - [LSP Server Configuration](#lsp-server-configuration)
+  - [EdenVim structure](#edenvim-structure)
+  - [Plugin system](#plugin-system)
+  - [Core tools and Language support](#core-tools-and-language-support)
+  - [LSP Server configuration](#lsp-server-configuration)
 - [🏢 Docker use cases and Corporate environments](#-docker-use-cases-and-corporate-environments)
 - [📦 Installation](#-installation)
   - [✅ Requirements](#-requirements)
-  - [💻 Local Installation on Linux and MacOS](#-local-installation-on-linux-and-macos)
+  - [💻 Local installation on Linux and MacOS](#-local-installation-on-linux-and-macos)
 - [🧬 Using Nix or NixOS](#-using-nix-or-nixos)
 - [👥 Credits](#-credits)
 
-## 📖 Why EdenVim? My Neovim Journey
+## 📖 Why EdenVim? My Neovim journey
 
 My path started with IDEs like IDEA and VS Code. At first, I tried to get _"the most powerful"_ Neovim setup. Intuitively, I treated it as a pre-made IDE, although it's a PDE platform.
 
@@ -86,7 +88,7 @@ However, a new challenge emerged: plugin authors occasionally introduce breaking
 
 I want to minimize the distance between _"I've installed it"_, _"It works for my projects"_, and _"I can customize my PDE"_. For me, EdenVim fits this gap — you follow the _"do it yourself"_ approach, but with more speed and less frustration.
 
-## 🐳 Quick Start with Docker
+## 🐳 Quick start with Docker
 
 Want to run EdenVim without affecting your system? If your terminal emulator supports true color and Nerd Font symbols, it's easy:
 ```bash
@@ -102,7 +104,7 @@ docker run -it --rm -v .:/root/work edenvim/edenvim:full
 docker run -it --rm -v ~/projects:/root/work edenvim/edenvim:full
 ```
 
-### Available Images
+### Available images
 
 EdenVim provides ready-to-use Docker images on the [Docker Hub](https://hub.docker.com/r/edenvim/edenvim). Each image builds upon the previous one in a multi-stage setup:
 
@@ -115,9 +117,15 @@ EdenVim provides ready-to-use Docker images on the [Docker Hub](https://hub.dock
 
 Lua-based Neovim configuration (EdenVim or your fork) is a part of `base`. Plugins are installed by `Lazy.nvim`. Language toolchains are system-wide tools like `npm`, `pip`, `go`, `cargo`, or `clangd`. Mason installs tools like LSP servers and debug adapters and uses language toolchains to do so.
 
-> [!NOTE] 
-> Version tags: `edenvim:full` for the latest stable, `edenvim:full-1.0` for a pinned version.
+### Version tags and mutability
+- *If unsure, use `edenvim:full` which is the complete suite that tracks the latest release.*
+- `edenvim` and `edenvim:latest` are aliases for `edenvim:full`, which is a mutable tag.
+- `edenvim:1.0.0` is an alias for `edenvim:full-1.0.0`.
+- For each of `base`, `plugins`, `langtools`, and `full`, there are two tags:
+  - `edenvim:full-1.0.0` is a pinned image, guaranteed to be immutable.
+  - `edenvim:full-1.0` is mutable, it tracks the newest patch version `z` in `edenvim:full-1.0.z`
 
+### Customization and advanced usage
 Everything related to Docker is contained within a single `Dockerfile` with the goal to be easy to copy and paste. Please refer to the `Dockerfile` for details - it's very simple and you can modify system packages, set non-root user, add tools, etc.
 It uses a multi-stage build that produces four images. `edenvim:base` may be a good base image for setting company-wide policies, proxy, and other features. If new images are based on it, it simplifies compliance. If it's worked out to `edenvim:full`, it may be a way to distribute reproducible developer environment that is based on the trusted base image.
 
@@ -134,7 +142,7 @@ When you first open EdenVim, you'll see a dashboard with one-key shortcuts. For 
   - `SPC e` to open traditional IDE-style file explorer (nvim-tree).
   - `SPC f e` / `SPC f E` to open `mini.files` file picker (which also provides file preview like `SPC f f`).
 
-- **Key Bindings**
+- **Key bindings**
 - `SPC` to open which-key popup (interactive cheatsheet):
   - navigate through groups with their prefix letters;
   - use backspace to go back;
@@ -157,7 +165,7 @@ To open **Mason** and **Lazy** popups, use `:Mason` and `:Lazy`. If you encounte
 
 Quickly adjust UI options via `SPC o`. For example, if you find it uncomfortable that you don't see `cmdline` under status line by default, you can toggle it with `SPC o c`.
 
-### Neovim Basics
+### Neovim basics
 
 If you're new to Neovim, start by entering `:Tutor` in Normal mode to learn the basics.
 Once you're comfortable, it’s helpful to read the [Neovim documentation](https://neovim.io/doc/user/index.html). The best approach is to read it regularly in small parts, ideally practicing as you go. This will help you gradually evolve your skill set and simplify your configuration. Many Neovim plugins and custom key mappings wouldn’t exist if more users read the full documentation!
@@ -166,7 +174,7 @@ We also recommend to [learn Lua](https://learnxinyminutes.com/docs/lua/) early. 
 
 ## 🔧 Customization
 
-### EdenVim Structure
+### EdenVim structure
 
 **The entry point** for the EdenVim-based configurations is `init.lua`. This is one of several predefined filenames Neovim looks for in configuration directories, including `~/.config/nvim`, `XDG_CONFIG_HOME/nvim`, and the `nvim` subdirectory within each `XDG_CONFIG_DIRS`. Our `init.lua` sequentially loads:
 
@@ -177,7 +185,7 @@ We also recommend to [learn Lua](https://learnxinyminutes.com/docs/lua/) early. 
 
 The **best place to start customization** is in `lua/options.lua`, then move on to `lua/keymaps.lua` and `lua/settings/toolset.lua`. Of course, don't forget to create your own dashboard header on `lua/settings/alpha-dashboard.lua`. Refer to the comments in the files on how to customize them — they are also available for most plugins in `lua/plugins/`. To define custom floating terminals with commands like `btop` or `iPython` in them, see `lua/plugins/toggleterm.lua` and `lua/keymaps.lua`.
 
-### Plugin System
+### Plugin system
 Lua files in `lua/plugins/` and `lua/colorschemes/` are automatically loaded by lazy.nvim, as specified in the `import_dirs` attribute in `lua/plugin-loader.lua`. These can be any directories. Each Lua file in these directories can return a list of plugins (or a single plugin) in lazy.nvim format. For example, if you create a file `lua/plugins/name_doesnt_matter.lua` with the following code, the plugin `lambdalisue/suda.vim` will be installed and lazily loaded on the next startup:
 ```lua
 return {
@@ -188,10 +196,10 @@ return {
 
 Lazy loading is a great optimization strategy, but it can be tricky to debug. If you add a plugin and something goes wrong, consult the [lazy.nvim documentation](https://lazy.folke.io/) as it's pretty compact and may save you some time.
 
-### Core Tools and Language Support
+### Core tools and Language support
 Next is `lua/settings/toolset.lua`, which specifies the tools that should be available, covering:
 - **Treesitter language parsers (`lua/plugins/treesitter.lua`)**: provide syntactic support for code highlighting, context-aware comments, and text objects (e.g., functions, statement bodies). To do so, it builds a syntax tree for a source file.
-- **LSP servers (`lua/plugins/lspconfig.lua`)**: in ideal world, they provide all language intelligence tools like code actions, refactoring routines, documentation popups, analysis-based code completion, and more. Technically, LSP Servers implement Language Server Protocol, which is based on a JSON-RPC.
+- **LSP Servers (`lua/plugins/lspconfig.lua`)**: in ideal world, they provide all language intelligence tools like code actions, refactoring routines, documentation popups, analysis-based code completion, and more. Technically, LSP Servers implement Language Server Protocol, which is based on a JSON-RPC.
 - **DAP Debug Adapters (`lua/plugins/dap.lua`)**: debug adapters used for language-specific debugging with `nvim-dap`.
 - **`null-ls` Sources (`lua/plugins/null-ls.lua`)**: specialized external tools like linters and formatters that are not LSP servers. When we say `null-ls`, we actually refer to its maintained fork `none-ls`.
 
@@ -210,7 +218,7 @@ Next is `lua/settings/toolset.lua`, which specifies the tools that should be ava
 
 Mason is unnecessary on Nix systems, see the [Nix instructions](#-using-nix-or-nixos) for details. In fact, it is unnecessasry on any system if you manage LSP, DAP, linters, and other tools externally.
 
-### LSP Server Configuration
+### LSP Server configuration
 Most plugin-specific code is intentionally grouped together, but LSP servers are an exception. `lspconfig` can set default configurations for LSP servers, but sometimes further customization is needed. Don’t hesitate to make changes, introduce hard-coded paths, or add commands when necessary to get everything working as desired — sometimes there's no other way.
 
 In `lua/plugins/lspconfig.lua`, a loop iterates over `require("settings.toolset").lsp_servers` and looks for `lua/settings/{server}.lua` for each `server` in the list. If a file is found and returns a table, that table is merged with the default `lspconfig` configuration for the server. For a list of LSP servers and their default configurations, refer to the [nvim-lspconfig documentation](https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md).
@@ -237,13 +245,13 @@ return {
 
 EdenVim doesn't require Docker. But it provides first-class Docker support and opens some powerful possibilities:
 
-1. **Instant Development Environments and Reproducibility:**
+1. **Instant development environments and Reproducibility:**
   - Launch a fully-configured EdenVim environments in seconds, without installing anything on your host machine.
   - Ensure every Neovim user in your team works in an identical base environment, but can use different plugins and configurations.
   - Experiment with new plugins or configurations in an without risking your main setup.
   - Provide reproducible environments for teaching, workshops, and tutorials.
 
-2. **Enterprise and Security Compliance:**
+2. **Enterprise and Security compliance:**
   - Achieve standardization and compliance by using approved base images, controlled distribution, reproducible builds, and operation in isolated networks without internet access.
   - If company doesn't allow installing anything, run EdenVim in Docker. Requesting docker is typically easy for developers.
   - Propose creating a pre-approved base Docker image for your team with proxies, mirrors, monitoring and scanners, version pinning, and other features enforced.
@@ -278,7 +286,7 @@ EdenVim is pre-configured to support TypeScript, Rust, Go, Lua, C/C++, Python, a
 - Clipboard tool (xclip, wl-clipboard, pbcopy, etc. `:help clipboard-tool` in Neovim for more details)
 - [A Nerd Font](https://www.nerdfonts.com/) like `JetBrains Mono Nerd Font` for icons
 
-#### Running Locally
+#### Running locally
 **Core dependencies:**
 - [Neovim](https://github.com/neovim/neovim/blob/master/INSTALL.md#install-from-package) 0.9.5+
 - A terminal emulator with true color and UTF-8 support (Kitty, alacritty, WezTerm, foot, Ghostty, etc.)
@@ -354,7 +362,7 @@ _Replace `https://` with `git@` if you have SSH access configured._
 nvim
 ```
 
-#### First Launch
+#### First launch
 
 On first launch, EdenVim automatically:
 - Installs the plugin manager (lazy.nvim).
@@ -382,7 +390,7 @@ With EdenVim, you can disable Mason-based plugins on Nix systems and manage exte
 - External dependencies are managed by Nix, ensuring that setup is reproducible in term of binary dependencies.
 - It works on non-Nix systems just as usual, and no parts of Nix "leak" into your Lua files.
 
-### How to Set Up EdenVim with Home Manager
+### How to set up EdenVim with Home Manager
 
 You don't have to use [Home Manager](https://nix-community.github.io/home-manager/), but it simplifies the process. Here's how you can set up EdenVim with Home Manager:
 
@@ -419,7 +427,7 @@ programs.neovim.extraPackages = with pkgs; [
 > Treesitter parsers are compiled binaries that can be managed through Nix. However, they also work well when compiled locally using `clang` which we use for C/C++ LSP anyway. To maintain consistency between Nix and non-Nix setups, EdenVim defaults to local compilation.
 > If you prefer Nix-managed parsers, add `pkgs.vimPlugins.nvim-treesitter.withAllGrammars` to `programs.neovim.plugins` and set `auto_install = false` in `lua/plugins/treesitter.lua`.
 
-#### 3. Link or Clone Your Neovim Configuration
+#### 3. Link or Clone your Neovim configuration
 
 You can manually clone or place your Neovim configuration in `~/.config/nvim` and skip this step.
 
@@ -457,7 +465,7 @@ require("lazy").setup({
 })
 ```
 
-#### 5. Set Up Home Manager Activation Scripts (Optional)
+#### 5. Set up Home Manager Activation scripts (Optional)
 
 To make sure all your plugins are ready to go when you start Neovim, use activation scripts — a mechanism used to set up the environment during `home-manager switch`.
 Consider it a "build" step for your Neovim configuration and a way to make it idempotent.
@@ -496,7 +504,7 @@ home.activation.updateNeovimState = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
 This script ensures that when you run `home-manager switch`, Neovim will install all plugins pinned to the versions specified in your `lazy-lock.json`,
 and any necessary build steps will be executed. So when you start Neovim, everything is ready to go.
 
-### Full Home-Manager Example to Copy and Paste
+### Full Home-Manager example to Copy and Paste
 
 Here's how it all comes together in your `home.nix` file, assuming you're using `home-manager`:
 
