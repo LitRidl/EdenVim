@@ -61,7 +61,7 @@ M.opts = {
     find_files = {
       find_command = { "rg", "--color=never", "--ignore-case", "--files", "-g", "!**/.git/*" },
       -- `hidden = true` makes Telescope show hidden files, except ignored ones
-      hidden = true,
+      hidden = false,
       follow = true,
       -- show files ignored by .gitignore, .ignore, etc.
       no_ignore = false,
