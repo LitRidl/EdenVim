@@ -61,7 +61,8 @@ RUN apk add --no-cache \
     go \
     rust-lldb \
     cargo \
-    clang19-extra-tools
+    clang19-extra-tools \
+    xz
 
 
 # Fully-functional EdenVim (for the specified languages), with no external dependencies in runtime.

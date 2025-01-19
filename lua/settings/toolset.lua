@@ -53,6 +53,7 @@ M.ts_languages = {
   "vimdoc",
   "xml",
   "yaml",
+  "zig",
 }
 
 -- LSP Servers according to nvim-lspconfig. `lua/plugins/lspconfig.lua` configures LSP servers with defaults which you can extend:
@@ -83,6 +84,7 @@ M.lsp_servers = {
   "terraformls",
   "ts_ls",
   "yamlls",
+  "zls",
 }
 
 -- Following sections describe tools that should be installed with Mason
