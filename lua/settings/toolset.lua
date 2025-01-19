@@ -104,6 +104,9 @@ M.lsp_with_no_mason = {
 if vim.fn.executable("clangd") == 1 then
     table.insert(M.lsp_with_no_mason, "clangd")
 end
+if vim.fn.executable("gopls") == 1 then
+    table.insert(M.lsp_with_no_mason, "gopls")
+end
 
 -- List of LSP servers to be installed with Mason
 -- This table is used by `lua/plugins/mason.lua` and during Docker build (to bootstrap dependencies)

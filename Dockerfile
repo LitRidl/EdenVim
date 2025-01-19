@@ -59,6 +59,7 @@ RUN apk add --no-cache \
     py3-pip \
     npm \
     go \
+    gopls \
     rust-lldb \
     cargo \
     clang19-extra-tools \
