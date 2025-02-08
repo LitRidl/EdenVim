@@ -34,7 +34,9 @@ local opts = {
     reset_packpath = true,
     rtp = {
       disabled_plugins = {
-        "netrwPlugin",
+        -- -- Disabled in many distros to cut few msec of startup time, but it allows remote development:
+        -- -- `nvim scp://root@server//etc/nginx/` will open a remote folder and sync changes, pure ssh
+        -- "netrwPlugin",
         "gzip",
         "tarPlugin",
         "zipPlugin",
