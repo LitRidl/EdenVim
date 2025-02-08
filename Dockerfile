@@ -11,7 +11,7 @@
 # - Lazy plugins + Treesitter grammars — no
 # - System-wide language tools — no
 # - Mason tools — no
-FROM alpine:edge AS edenvim-base
+FROM alpine:3.21 AS edenvim-base
 
 RUN apk add --no-cache \
     alpine-sdk \
